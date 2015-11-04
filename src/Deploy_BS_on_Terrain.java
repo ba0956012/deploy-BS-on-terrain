@@ -1,16 +1,10 @@
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.ArrayList;
 
+public class Deploy_BS_on_Terrain {
 
-import javafx.geometry.Point3D;
-
-
-
-public class main {
-
-    public static void main(String[] args) throws IOException, InterruptedException{
+	public  void Deploy(String TIN_File, String Path_File) throws IOException, InterruptedException{
     	//SubTask.geodesc = new ArrayList<Point3D>();
 			//Read_TIN tr = new Read_TIN();
 			//tr.read("C:/Users/sclab/Desktop/terrain/geotest/flat_triangular_mesh.txt");
@@ -20,7 +14,7 @@ public class main {
 		    //TIN_Point p3 = new TIN_Point(42.000000,3.5283644,29.000000);
 		    //double i = Find_Zcoordinate.calcY(p1,p2,p3, 42.779999,3.695628);
     	///////////////////////////////////////////////////////////////////////////////////
-    	Coordinae_Transform CT = new Coordinae_Transform();
+    	Coordinae_Transform CT = new Coordinae_Transform(); //.asc¤§°Ñ¼Æ
 	    CT.cellsize = 0.000833333333;
 	    CT.xllcorner = 119.999583333333;
 	    CT.yllcorner = 22.999583333333;    
@@ -36,7 +30,9 @@ public class main {
 		    	    
 		    Read_TIN RT = new Read_TIN();
 		    //TL = RT.read("C:/Users/sclab/Desktop/terrain/geotest/hedgehog_mesh.txt");
-		    TL = RT.read("JAVA_N23.txt");
+		    TL = RT.read(TIN_File);
+		    
+		    //TL = RT.read("JAVA_N23.txt");"path.txt"
 		 /*   
 		    ArrayList<TIN_Point> TLP = new ArrayList<TIN_Point>();
 		    for(int i=0;i<TL.p_List.size();i++){
@@ -52,7 +48,9 @@ public class main {
 		    
 		    //System.out.println("TL.t_List.size():"+TL.t_List.size());
 		    ArrayList<Line2D.Double> l = new ArrayList<Line2D.Double>();
-		    l = Read_line.read("path.txt");
+		    l = Read_line.read(Path_File);
+		    
+		   // l = Read_line.read("path.txt");
 		    //System.out.println(l.get(0).getX1());
 		    Geodesic g = new Geodesic();
 		    //g.cal_Geodesic(TL.t_List, TL.p_List, l);
@@ -144,4 +142,5 @@ public class main {
 		    //System.out.println(SubTask.geodesc.get(ii));
 			
 		}
+
 }
