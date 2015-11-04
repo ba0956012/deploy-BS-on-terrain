@@ -25,11 +25,9 @@ public class Deploy_BS {
 			PK.Line.get(i).end().setY(CT.toC_coordinate(PK.Line.get(i).end().x(), PK.Line.get(i).end().y()).getY());
 		}
 	*/	
-		mesh_and_plan Map = new mesh_and_plan();
-		int PKT = PK.t.p_id[2];
+		//mesh_and_plan Map = new mesh_and_plan();
 		
-		System.out.println("TL"+PKT+":"+TL.p_List.get(PKT).getX()+","+TL.p_List.get(PKT).getY()+","+TL.p_List.get(PKT).getZ());
-		
+						
 		int jj[] = PK.t.p_id;
 	/*			
 		TIN_Point p0 = new TIN_Point(CT.toC_coordinate(TL.p_List.get(jj[0]).getX(),TL.p_List.get(jj[0]).getY()).getX(),
@@ -45,15 +43,19 @@ public class Deploy_BS {
 				TL.p_List.get(jj[2]).getZ());
 	*/	
 		//Map = Map.mesh_to_plan(p0, p1, p2);
-		 Map = Map.mesh_to_plan(TL.p_List.get(jj[0]), TL.p_List.get(jj[1]), TL.p_List.get(jj[2]));
+		 //Map = Map.mesh_to_plan(TL.p_List.get(jj[0]), TL.p_List.get(jj[1]), TL.p_List.get(jj[2]));
 		ArrayList<Line2D.Double> L_list =new ArrayList<Line2D.Double>();
 		System.out.println("PK.Line.size():"+PK.Line.size());
 		for(int ii=0; ii<PK.Line.size();ii++){
 			System.out.println("DS30:"+ TL.p_List.get(jj[0]).getX()+","+TL.p_List.get(jj[0]).getY());
 			System.out.println("DS31:"+ PK.Line.get(ii).origin().x()+","+PK.Line.get(ii).origin().y());
 			System.out.println("DS31:"+ PK.Line.get(ii).end().x()+","+PK.Line.get(ii).end().y());
-			System.out.println("DS32:"+line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])).getX1());
-			L_list .add(line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])));
+			//System.out.println("DS32:"+line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])).getX1());
+			//L_list .add(line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])));
+			Line2D.Double l = new Line2D.Double(PK.Line.get(ii).origin().x(), PK.Line.get(ii).origin().y(),PK.Line.get(ii).end().x(),PK.Line.get(ii).end().y());
+			
+			
+			L_list .add(l);
 		}
 		/*
 		for(int ii=0;ii<L_list.size();ii++){
@@ -215,29 +217,29 @@ public class Deploy_BS {
 		//for(i=0;i<centerls.size();i++)
 		// System.out.println("centerls:"+centerls.get(i));
 ///////////////////////////////////////////////////////////////////////////////////// ls point to point3D		
-			FileWriter fw1 = new FileWriter("center.txt",true);
+		//	FileWriter fw1 = new FileWriter("center.txt",true);
 			
 			
 			
-			for(i=0;i<centerls.size();i=i+2){
+		//	for(i=0;i<centerls.size();i=i+2){
 			
-			System.out.println("D224:" +Map.plan_p3.x+","+Map.plan_p3.y+","+centerls.get(i)+","+ centerls.get(i+1));
+		//	System.out.println("D224:" +Map.plan_p3.x+","+Map.plan_p3.y+","+centerls.get(i)+","+ centerls.get(i+1));
 			
 				
-			Point3D center =
-			Point2D_to_Point3D.Calcute(Map.p1, Map.p2, Map.p3, Map.plan_p1.distance(centerls.get(i), centerls.get(i+1)), Map.plan_p2.distance(centerls.get(i), centerls.get(i+1)),
-					dist(Map.plan_p3.x,Map.plan_p3.y,centerls.get(i), centerls.get(i+1)));
+		//	Point3D center =
+		//	Point2D_to_Point3D.Calcute(Map.p1, Map.p2, Map.p3, Map.plan_p1.distance(centerls.get(i), centerls.get(i+1)), Map.plan_p2.distance(centerls.get(i), centerls.get(i+1)),
+		//			dist(Map.plan_p3.x,Map.plan_p3.y,centerls.get(i), centerls.get(i+1)));
 			
-			System.out.println("center2D:"+centerls.get(i)+","+centerls.get(i+1));
-			System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+	//		System.out.println("center2D:"+centerls.get(i)+","+centerls.get(i+1));
+//			System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
 			
-			fw1.write(center.getX()+","+center.getY()+","+center.getZ());
+	//		fw1.write(center.getX()+","+center.getY()+","+center.getZ());
 			//System.out.println("CT3D:"+CT.toLatitude_and_Longitude(center.getX(),center.getY()).getX()+","+CT.toLatitude_and_Longitude(center.getX(),center.getY()).getY()+","+center.getZ());
-		}
-			fw1.close();
+	//	}
+	//		fw1.close();
 		System.out.println("stop" + stop);
 /////////////////////////////////////////////////////////////////////////////////////	
-		/*
+		
 		if(centerls.size()>0){
 			System.out.println("centerls");
 		for(int cls=0;cls<centerls.size();cls++){
@@ -246,9 +248,9 @@ public class Deploy_BS {
 		}
 		System.out.println("number of bs.size():"+centerls.size()/2);
 		}
-		*/
+		
 /////////////////////////////////////////////////////////////////////////////////////		
-		/*	
+		
 		BufferedWriter fw = null;
 		
 			
@@ -286,7 +288,7 @@ public class Deploy_BS {
 			}
 		}
 	
-	*/
+	
 	//////////////////////////////////////////////////////////	
 	}
 
