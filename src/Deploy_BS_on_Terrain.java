@@ -113,10 +113,10 @@ public class Deploy_BS_on_Terrain {
 		   		//	System.out.println("i:"+i);
 		    	//	System.out.println("CP_L.get(i).Line.size()"+CP_L.get(i).Line.size());
 		    		
-		    		for(int k=0;k<CP_L.get(i).Line.size();k++){
+		    	//	for(int k=0;k<CP_L.get(i).Line.size();k++){
 		    	//		System.out.println(CP_L.get(i).Line.get(k).origin().x()+","+CP_L.get(i).Line.get(k).origin().y());	
 		    	//		System.out.println(CP_L.get(i).Line.get(k).end().x()+","+CP_L.get(i).Line.get(k).end().y());
-		    		}
+		    	//	}
 		    		DB.Deploy(CP_L.get(i), TL, CT);
 		    		
 		    	}

@@ -16,10 +16,10 @@ public class TIN_Point extends Point3D{
 	}
 			
 	
-	public double distance(TIN_Point p){
+	public double distance(org.jlab.geom.prim.Point3D point3d){
 			
 		
-		return this.distance(p.getX(), p.getY(), p.getZ());	
+		return this.distance(point3d.x(), point3d.y(), point3d.z());	
 	}
 	
 }

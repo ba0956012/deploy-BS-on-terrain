@@ -1,4 +1,7 @@
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+
+import org.jlab.geom.prim.Line3D;
 
 import javafx.geometry.Point3D;
 
@@ -41,7 +44,52 @@ public class mesh_and_plan {
 	}
 	
 	
-	public static Point2D.Double project(double D, Point3D p, org.jlab.geom.prim.Point3D point3d){ //D = distance of p to p1 , project point3D p1 to plan(point3D p and (p1.x ,p1.y, p.z) ) 
+	public  Line2D.Double project(Line3D l){
+	Line2D.Double L = new Line2D.Double();
+	L.setLine(
+	project(this.p1.distance(l.origin()), this.p1, l.origin()).getX(),
+	project(this.p1.distance(l.origin()), this.p1, l.origin()).getY(),
+	project(this.p1.distance(l.end()), this.p1, l.end()).getX(),
+	project(this.p1.distance(l.end()), this.p1, l.end()).getY()
+	);
+	return L;
+	}
+	
+	public static Point2D.Double project(double D, Point3D p, org.jlab.geom.prim.Point3D p1){ //D = distance of p to p1 , project point3D p1 to plan(point3D p and (p1.x ,p1.y, p.z) ) 
+		Point2D.Double P = new Point2D.Double();
+		double d = p.distance(p1.x(), p1.y(), p.getZ());
+		
+		if(d == 0)
+		{
+			P.x = p1.x();	
+			P.y = p1.y();
+			return P;
+		}
+		
+		else if(p1.x()-p.getX() != 0)
+		{
+		 d =  (p1.x()-p.getX()) / d;
+		 
+		 if(p1.y()-p.getY() == 0){
+				P.y = p1.y();
+		 P.x = D * d + p.getX();
+		 return P;
+		 }
+		 else{
+			  P.x = D * d + p.getX();
+			  d =  (p1.y()-p.getY()) / d;
+			  P.y = D * d + p.getY();
+			  return P;
+		 }
+		
+		}
+		else{
+			P.x = p1.x();
+			d =  (p1.y()-p.getY()) / d;
+			P.y = D * d + p.getY();
+			return P;
+		}
+		/*
 		Point2D.Double P = new Point2D.Double();
 		double s;
 		int ss=0;
@@ -69,9 +117,38 @@ public class mesh_and_plan {
 		
 		//System.out.println("project:"+P.x+","+P.y);
 		return P;
+		*/
 	}
 	
 	public static Point2D.Double project1(double D, TIN_Point p, Point3D p1){ //D = distance of p to p1 , project point3D p1 to plan(point3D p and (p1.x ,p1.y, p.z) ) 
+		Point2D.Double P = new Point2D.Double();
+		double d = p.distance(p1.getX(), p1.getY(), p.getZ());
+		
+		if(p1.getX()-p.getX() != 0)
+		{
+		 d =  (p1.getX()-p.getX()) / d;
+		 
+		 if(p1.getY()-p.getY() == 0){
+				P.y = p1.getY();
+		 P.x = D * d + p.getX();
+		 return P;
+		 }
+		 else{
+			  P.x = D * d + p.getX();
+			  d =  (p1.getY()-p.getY()) / d;
+			  P.y = D * d + p.getY();
+			  return P;
+		 }
+		
+		}
+		else{
+			P.x = p1.getX();
+			d =  (p1.getY()-p.getY()) / d;
+			P.y = D * d + p.getY();
+			return P;
+		}
+						
+		/*
 		Point2D.Double P = new Point2D.Double();
 		double s;
 		int ss=0;
@@ -102,6 +179,7 @@ public class mesh_and_plan {
 		P.y = p.getY()+p1.getY()*s;
 		
 		return P;
+		*/
 	}
 	
 }

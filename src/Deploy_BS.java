@@ -17,60 +17,31 @@ public class Deploy_BS {
 	static int point = 10000;// 控制小數點
 	
 	public void Deploy(covered_package PK, Read_TIN.TIN_List TL, Coordinae_Transform CT ) throws IOException{
-	/*
-		for(int i=0;i<PK.Line.size();i++){
-			PK.Line.get(i).origin().setX(CT.toC_coordinate(PK.Line.get(i).origin().x(), PK.Line.get(i).origin().y()).getX());
-			PK.Line.get(i).origin().setY(CT.toC_coordinate(PK.Line.get(i).origin().x(), PK.Line.get(i).origin().y()).getY());
-			PK.Line.get(i).end().setX(CT.toC_coordinate(PK.Line.get(i).end().x(), PK.Line.get(i).end().y()).getX());
-			PK.Line.get(i).end().setY(CT.toC_coordinate(PK.Line.get(i).end().x(), PK.Line.get(i).end().y()).getY());
-		}
-	*/	
-		//mesh_and_plan Map = new mesh_and_plan();
+	
+		mesh_and_plan Map = new mesh_and_plan();
 		
-						
 		int jj[] = PK.t.p_id;
-	/*			
-		TIN_Point p0 = new TIN_Point(CT.toC_coordinate(TL.p_List.get(jj[0]).getX(),TL.p_List.get(jj[0]).getY()).getX(),
-				CT.toC_coordinate(TL.p_List.get(jj[0]).getX(),TL.p_List.get(jj[0]).getY()).getY(),
-				TL.p_List.get(jj[0]).getZ());
-		 
-		TIN_Point p1 = new TIN_Point(CT.toC_coordinate(TL.p_List.get(jj[1]).getX(),TL.p_List.get(jj[1]).getY()).getX(),
-				CT.toC_coordinate(TL.p_List.get(jj[1]).getX(),TL.p_List.get(jj[1]).getY()).getY(),
-				TL.p_List.get(jj[1]).getZ());
-		
-		TIN_Point p2 = new TIN_Point(CT.toC_coordinate(TL.p_List.get(jj[2]).getX(),TL.p_List.get(jj[2]).getY()).getX(),
-				CT.toC_coordinate(TL.p_List.get(jj[2]).getX(),TL.p_List.get(jj[2]).getY()).getY(),
-				TL.p_List.get(jj[2]).getZ());
-	*/	
-		//Map = Map.mesh_to_plan(p0, p1, p2);
-		 //Map = Map.mesh_to_plan(TL.p_List.get(jj[0]), TL.p_List.get(jj[1]), TL.p_List.get(jj[2]));
+
+		Map = Map.mesh_to_plan(TL.p_List.get(jj[0]), TL.p_List.get(jj[1]), TL.p_List.get(jj[2]));
 		ArrayList<Line2D.Double> L_list =new ArrayList<Line2D.Double>();
 		System.out.println("PK.Line.size():"+PK.Line.size());
 		for(int ii=0; ii<PK.Line.size();ii++){
 			System.out.println("DS30:"+ TL.p_List.get(jj[0]).getX()+","+TL.p_List.get(jj[0]).getY());
 			System.out.println("DS31:"+ PK.Line.get(ii).origin().x()+","+PK.Line.get(ii).origin().y());
-			System.out.println("DS31:"+ PK.Line.get(ii).end().x()+","+PK.Line.get(ii).end().y());
+			System.out.println("DS32:"+ PK.Line.get(ii).end().x()+","+PK.Line.get(ii).end().y());
 			//System.out.println("DS32:"+line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])).getX1());
 			//L_list .add(line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])));
-			Line2D.Double l = new Line2D.Double(PK.Line.get(ii).origin().x(), PK.Line.get(ii).origin().y(),PK.Line.get(ii).end().x(),PK.Line.get(ii).end().y());
-			
-			
+			Line2D.Double l = new Line2D.Double();
+			l = Map.project(PK.Line.get(ii));
+			System.out.println("DS33:"+ TL.p_List.get(jj[0]).getX()+","+TL.p_List.get(jj[0]).getY());
+			System.out.println("DS34:"+ l.getX1()+","+l.getY1());
+			System.out.println("DS35:"+ l.getX1()+","+l.getY2());
 			L_list .add(l);
 		}
-		/*
-		for(int ii=0;ii<L_list.size();ii++){
-			System.out.println("L_list");
-			System.out.println(L_list.get(ii).x1);
-			System.out.println(L_list.get(ii).y1);
-			System.out.println(L_list.get(ii).x2);
-			System.out.println(L_list.get(ii).y2);
-			System.out.println();
-		}
-		*/
-		//find_leftmost(L_list);
+
 	///////////////////////////////////////////////////////////
 		int tmp, stop = 0;
-		double h, k, r = 1.0; // 第一個圓心 //r 半徑
+		double h, k, r = 100.0; // 第一個圓心 //r 半徑
 		// double x1=4.02, y1=7.2, x2=h, y2=k, x3=6, y3=4; //三點座標
 		double x1, y1, x2, y2, x3, y3; // 三點座標
 		double a1, b1, c1; // 線(x1, y1, x2, y2)
