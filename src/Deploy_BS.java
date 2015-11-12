@@ -23,19 +23,33 @@ public class Deploy_BS {
 		int jj[] = PK.t.p_id;
 
 		Map = Map.mesh_to_plan(TL.p_List.get(jj[0]), TL.p_List.get(jj[1]), TL.p_List.get(jj[2]));
+		System.out.println("DBS26: "+Map.plan_p3);
+		System.out.println("DBS27: "+Map.project(Map.p3));
+		
+		
 		ArrayList<Line2D.Double> L_list =new ArrayList<Line2D.Double>();
-		System.out.println("PK.Line.size():"+PK.Line.size());
+		//System.out.println("PK.Line.size():"+PK.Line.size());
 		for(int ii=0; ii<PK.Line.size();ii++){
+			/*
 			System.out.println("DS30:"+ TL.p_List.get(jj[0]).getX()+","+TL.p_List.get(jj[0]).getY());
 			System.out.println("DS31:"+ PK.Line.get(ii).origin().x()+","+PK.Line.get(ii).origin().y());
 			System.out.println("DS32:"+ PK.Line.get(ii).end().x()+","+PK.Line.get(ii).end().y());
+			*/
 			//System.out.println("DS32:"+line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])).getX1());
 			//L_list .add(line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])));
 			Line2D.Double l = new Line2D.Double();
+			
+			
+				
+			
 			l = Map.project(PK.Line.get(ii));
+			
+			/*
 			System.out.println("DS33:"+ TL.p_List.get(jj[0]).getX()+","+TL.p_List.get(jj[0]).getY());
 			System.out.println("DS34:"+ l.getX1()+","+l.getY1());
 			System.out.println("DS35:"+ l.getX1()+","+l.getY2());
+			*/
+			
 			L_list .add(l);
 		}
 
@@ -192,25 +206,52 @@ public class Deploy_BS {
 			
 			
 			
-		//	for(i=0;i<centerls.size();i=i+2){
+			for(i=0;i<centerls.size();i=i+2){
+			/*
+			System.out.println("D224:" +Map.plan_p1.x+","+Map.plan_p1.y);	
+			System.out.println("D224:" +Map.plan_p2.x+","+Map.plan_p2.y);	
+			System.out.println("D224:" +Map.plan_p3.x+","+Map.plan_p3.y);
+			System.out.println("centerls"+i+":"+centerls.get(i)+","+ centerls.get(i+1));
+			*/
 			
-		//	System.out.println("D224:" +Map.plan_p3.x+","+Map.plan_p3.y+","+centerls.get(i)+","+ centerls.get(i+1));
 			
-				
-		//	Point3D center =
-		//	Point2D_to_Point3D.Calcute(Map.p1, Map.p2, Map.p3, Map.plan_p1.distance(centerls.get(i), centerls.get(i+1)), Map.plan_p2.distance(centerls.get(i), centerls.get(i+1)),
-		//			dist(Map.plan_p3.x,Map.plan_p3.y,centerls.get(i), centerls.get(i+1)));
+			if(Map.plan_p1.distance(centerls.get(i), centerls.get(i+1))==0){
+				Point3D center = Map.p1;
+				System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+			}
 			
-	//		System.out.println("center2D:"+centerls.get(i)+","+centerls.get(i+1));
-//			System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+			else if(Map.plan_p2.distance(centerls.get(i), centerls.get(i+1))==0){
+				Point3D center = Map.p2;
+				System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+			}
+			
+			else if(Map.plan_p3.distance(centerls.get(i), centerls.get(i+1))==0){
+				Point3D center = Map.p3;
+				System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+			}
+			
+			else{
+			/*
+			System.out.println("Map.plan_p1:"+Map.plan_p1.x+","+Map.plan_p1.y);
+			System.out.println("Map.plan_p2:"+Map.plan_p2.x+","+Map.plan_p2.y);
+			System.out.println("Map.plan_p3:"+Map.plan_p3.x+","+Map.plan_p3.y);
+			*/
+			Point3D center =
+			Point2D_to_Point3D.Calcute(Map.p1, Map.p2, Map.p3, Map.plan_p1.distance(centerls.get(i), centerls.get(i+1)), Map.plan_p2.distance(centerls.get(i), centerls.get(i+1)),
+					 Map.plan_p3.distance(centerls.get(i), centerls.get(i+1)));
+			//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+			
+			}
+			//System.out.println("center2D:"+centerls.get(i)+","+centerls.get(i+1));
+			
 			
 	//		fw1.write(center.getX()+","+center.getY()+","+center.getZ());
-			//System.out.println("CT3D:"+CT.toLatitude_and_Longitude(center.getX(),center.getY()).getX()+","+CT.toLatitude_and_Longitude(center.getX(),center.getY()).getY()+","+center.getZ());
-	//	}
+		//	System.out.println("CT3D:"+CT.toLatitude_and_Longitude(center.getX(),center.getY()).getX()+","+CT.toLatitude_and_Longitude(center.getX(),center.getY()).getY()+","+center.getZ());
+		}
 	//		fw1.close();
 		System.out.println("stop" + stop);
 /////////////////////////////////////////////////////////////////////////////////////	
-		
+	/*	
 		if(centerls.size()>0){
 			System.out.println("centerls");
 		for(int cls=0;cls<centerls.size();cls++){
@@ -219,7 +260,7 @@ public class Deploy_BS {
 		}
 		System.out.println("number of bs.size():"+centerls.size()/2);
 		}
-		
+	*/	
 /////////////////////////////////////////////////////////////////////////////////////		
 		
 		BufferedWriter fw = null;

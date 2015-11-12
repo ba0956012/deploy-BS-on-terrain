@@ -24,7 +24,7 @@ public  class SubTask implements Runnable {
    		 int n=0;
    	    try {
    	      String input = iReader.readLine();
-   	   FileWriter fw = new FileWriter("geodesic.txt", true);
+   	   //FileWriter fw = new FileWriter("geodesic.txt", true);
    	      while (input != null)
    	      {
    	        //若需執行結果可將input傳出
@@ -43,7 +43,7 @@ public  class SubTask implements Runnable {
    	        
    	       n++;
    	      }
-   	      fw.close(); 
+   	     // fw.close(); 
    	    }
    	    catch (IOException ioe) {
    	    }
