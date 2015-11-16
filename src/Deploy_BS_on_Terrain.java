@@ -4,7 +4,13 @@ import java.util.ArrayList;
 
 public class Deploy_BS_on_Terrain {
 
-	public  void Deploy(String TIN_File, String Path_File) throws IOException, InterruptedException{
+	public  void Deploy(String TIN_File, String Path_File, 
+			int ncols,
+			int ycols,
+			double xllcorner,//オàx竒
+			double yllcorner,//オàx絥
+			double cellsize, 
+			double r) throws IOException, InterruptedException{
     	//SubTask.geodesc = new ArrayList<Point3D>();
 			//Read_TIN tr = new Read_TIN();
 			//tr.read("C:/Users/sclab/Desktop/terrain/geotest/flat_triangular_mesh.txt");
@@ -14,11 +20,12 @@ public class Deploy_BS_on_Terrain {
 		    //TIN_Point p3 = new TIN_Point(42.000000,3.5283644,29.000000);
 		    //double i = Find_Zcoordinate.calcY(p1,p2,p3, 42.779999,3.695628);
     	///////////////////////////////////////////////////////////////////////////////////
-    	Coordinae_Transform CT = new Coordinae_Transform(); //.ascぇ把计
-	    CT.cellsize = 0.000833333333;
-	    CT.xllcorner = 119.999583333333;
-	    CT.yllcorner = 22.999583333333;    
-    	
+    	Coordinate_Transform CT = new Coordinate_Transform(); //.ascぇ把计
+	    CT.cellsize = cellsize;
+	    CT.xllcorner = xllcorner;
+	    CT.yllcorner = yllcorner;    
+    	CT.ycols = ycols;
+    	CT.ncols = ncols;
     	
 		    //CT.GeneratePath(2, 1200, 1200);
 		///////////////////////////////////////////////////////////////////////////////////////////////    
@@ -48,7 +55,7 @@ public class Deploy_BS_on_Terrain {
 		    
 		    //System.out.println("TL.t_List.size():"+TL.t_List.size());
 		    ArrayList<Line2D.Double> l = new ArrayList<Line2D.Double>();
-		    l = Read_line.read(Path_File);
+		    l = Read_line.read(Path_File, CT);
 		    
 		   // l = Read_line.read("path.txt");
 		    //System.out.println(l.get(0).getX1());
@@ -117,7 +124,7 @@ public class Deploy_BS_on_Terrain {
 		    	//		System.out.println(CP_L.get(i).Line.get(k).origin().x()+","+CP_L.get(i).Line.get(k).origin().y());	
 		    	//		System.out.println(CP_L.get(i).Line.get(k).end().x()+","+CP_L.get(i).Line.get(k).end().y());
 		    	//	}
-		    		DB.Deploy(CP_L.get(i), TL, CT);
+		    		DB.Deploy(CP_L.get(i), TL, r, CT);
 		    		
 		    	}
 		    	

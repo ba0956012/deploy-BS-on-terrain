@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Read_line {
 
 	
-	 public static  ArrayList<java.awt.geom.Line2D.Double> read(String FileName) throws IOException{
+	 public static  ArrayList<java.awt.geom.Line2D.Double> read(String FileName, Coordinate_Transform CT) throws IOException{
 	
 		 ArrayList<Line2D.Double> l = new ArrayList<Line2D.Double>();
 		 FileReader fr = new FileReader(FileName);
@@ -20,12 +20,16 @@ public class Read_line {
 				String tempArray[]  = str.split(" ");//分割空格     			
 				tmp_line.x1=Double.valueOf(tempArray[0]);
 				tmp_line.y1=Double.valueOf(tempArray[1]);
+				tmp_line.x1 = CT.to_grid(tmp_line.x1, tmp_line.y1).getX();
+				tmp_line.y1 = CT.to_grid(tmp_line.x1, tmp_line.y1).getY();
 				j++;
 			   }
 			   else{
 				   String tempArray[]  = str.split(" ");//分割空格     
 				   tmp_line.x2 = Double.valueOf(tempArray[0]);
 				   tmp_line.y2 = Double.valueOf(tempArray[1]);
+				   tmp_line.x2 = CT.to_grid(tmp_line.x2, tmp_line.y2).getX();
+				tmp_line.y2 = CT.to_grid(tmp_line.x2, tmp_line.y2).getY();
 			   l.add((java.awt.geom.Line2D.Double) tmp_line.clone());
 			   j=0;
 			   }

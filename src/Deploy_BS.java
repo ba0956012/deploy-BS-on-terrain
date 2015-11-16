@@ -16,15 +16,15 @@ public class Deploy_BS {
 	static ArrayList<Double> coverls = new ArrayList<Double>();
 	static int point = 10000;// 控制小數點
 	
-	public void Deploy(covered_package PK, Read_TIN.TIN_List TL, Coordinae_Transform CT ) throws IOException{
+	public void Deploy(covered_package PK, Read_TIN.TIN_List TL,  double rr, Coordinate_Transform CT ) throws IOException{
 	
 		mesh_and_plan Map = new mesh_and_plan();
 		
 		int jj[] = PK.t.p_id;
 
 		Map = Map.mesh_to_plan(TL.p_List.get(jj[0]), TL.p_List.get(jj[1]), TL.p_List.get(jj[2]));
-		System.out.println("DBS26: "+Map.plan_p3);
-		System.out.println("DBS27: "+Map.project(Map.p3));
+		//System.out.println("DBS26: "+Map.plan_p3);
+		//System.out.println("DBS27: "+Map.project(Map.p3));
 		
 		
 		ArrayList<Line2D.Double> L_list =new ArrayList<Line2D.Double>();
@@ -55,7 +55,7 @@ public class Deploy_BS {
 
 	///////////////////////////////////////////////////////////
 		int tmp, stop = 0;
-		double h, k, r = 100.0; // 第一個圓心 //r 半徑
+		double h, k, r = CT.range(rr); // 第一個圓心 //r 半徑
 		// double x1=4.02, y1=7.2, x2=h, y2=k, x3=6, y3=4; //三點座標
 		double x1, y1, x2, y2, x3, y3; // 三點座標
 		double a1, b1, c1; // 線(x1, y1, x2, y2)
@@ -272,8 +272,10 @@ public class Deploy_BS {
 			FileWriter fw1 = new FileWriter("center.txt",true);
 			
 			for (i = 0; i < centerls.size(); i = i + 2) {
-				String b = String.valueOf(centerls.get(i));
-				String bb =  String.valueOf(centerls.get(i + 1));
+				//CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getX();
+				
+				String b = String.valueOf(CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getX());
+				String bb =  String.valueOf(CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getY());
 				fw1.write(b+","+bb+"\r\n");
 				
 				

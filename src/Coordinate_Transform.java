@@ -7,16 +7,20 @@ import java.util.Random;
 
 import org.jlab.geom.prim.Point3D;
 
-public class Coordinae_Transform {
+public class Coordinate_Transform {
+	int ncols;
+	int ycols;
 	double xllcorner;//左下角x經度
 	double yllcorner;//左下角x緯度
 	double cellsize; //grid 間隔多少度
+	//1度 == 111000公尺
 	
-public Point2D toC_coordinate(double d, double e){
+public Point2D to_grid(double d, double e){
 	Point2D.Double p = new Point2D.Double();
 	
-	p.x = d*cellsize*(1.0/111000.0);
-	p.y = e*cellsize*(1.0/111000.0);
+	p.x = (d-this.xllcorner)/ cellsize;
+	p.y = ycols - (e-this.yllcorner)/cellsize;	
+	
 	//p.x = d;
 	//p.y = e;
 	return p;
@@ -26,8 +30,13 @@ public Point2D toLatitude_and_Longitude(double x, double y){
 	Point2D.Double p = new Point2D.Double();
 	
 	p.x = (x*0.00000900900901)+xllcorner;
-	p.y = (y*0.00000900900901)+yllcorner;
+	p.y = ((y-ycols)*0.00000900900901)+yllcorner;
 	return p;
+}
+
+public double range(double r){
+	return (r/111000)/cellsize;
+	
 }
 
 public Point3D ASCtoLatitude_and_Longitude(double x, double y, double z){
