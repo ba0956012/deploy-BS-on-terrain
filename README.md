@@ -14,8 +14,8 @@ Deploy_BS_on_Terrain DBT= new Deploy_BS_on_Terrain();
 	DBT.Deploy("JAVA_N23.txt", "path.txt" , 
 	1200,
 	1200,
-	119.999583333333,//左下角x經度
-	22.999583333333,//左下角x緯度
+	119.999583333333,
+	22.999583333333,
 	0.000833333333, 
 	100.0);    
 參數為(地形檔之檔案路徑,路徑檔之檔案路徑,.asc檔的ncols,.asc檔的nrows,.asc檔的xllcorner,.asc檔的yllcorner,.asc檔的cellsize,基地台通訊半徑以公尺為單位)
