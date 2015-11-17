@@ -10,7 +10,7 @@ JAVA_N23.txt 為 N23.tin之文字檔
     
 在main中呼叫佈署基地台的方法需帶入8個參數   
 Deploy_BS_on_Terrain DBT= new Deploy_BS_on_Terrain();   
-	以N23.dt1為例:
+	以N23.dt1為例:  
 	DBT.Deploy("JAVA_N23.txt", "path.txt" , 
 	1200,
 	1200,
