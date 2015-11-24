@@ -20,16 +20,16 @@ public class Read_line {
 				String tempArray[]  = str.split(" ");//分割空格     			
 				tmp_line.x1=Double.valueOf(tempArray[0]);
 				tmp_line.y1=Double.valueOf(tempArray[1]);
-				tmp_line.x1 = CT.to_grid(tmp_line.x1, tmp_line.y1).getX();
-				tmp_line.y1 = CT.to_grid(tmp_line.x1, tmp_line.y1).getY();
+				tmp_line.x1 = CT.to_grid(Double.valueOf(tempArray[0]), Double.valueOf(tempArray[1])).getX();
+				tmp_line.y1 = CT.to_grid(Double.valueOf(tempArray[0]), Double.valueOf(tempArray[1])).getY();
 				j++;
 			   }
 			   else{
 				   String tempArray[]  = str.split(" ");//分割空格     
 				   tmp_line.x2 = Double.valueOf(tempArray[0]);
 				   tmp_line.y2 = Double.valueOf(tempArray[1]);
-				   tmp_line.x2 = CT.to_grid(tmp_line.x2, tmp_line.y2).getX();
-				tmp_line.y2 = CT.to_grid(tmp_line.x2, tmp_line.y2).getY();
+				   tmp_line.x2 = CT.to_grid(Double.valueOf(tempArray[0]), Double.valueOf(tempArray[1])).getX();
+				tmp_line.y2 = CT.to_grid(Double.valueOf(tempArray[0]), Double.valueOf(tempArray[1])).getY();
 			   l.add((java.awt.geom.Line2D.Double) tmp_line.clone());
 			   j=0;
 			   }

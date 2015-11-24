@@ -23,14 +23,20 @@ public Point2D to_grid(double d, double e){
 	
 	//p.x = d;
 	//p.y = e;
+	//System.out.println("Point2D to_grid :");
+	//System.out.println("Point2D :" + d +","+e);
+	//System.out.println("grid :" + p.x +","+p.y);
 	return p;
 }
 	
 public Point2D toLatitude_and_Longitude(double x, double y){
 	Point2D.Double p = new Point2D.Double();
 	
-	p.x = (x*0.00000900900901)+xllcorner;
-	p.y = ((y-ycols)*0.00000900900901)+yllcorner;
+	p.x = (x*cellsize)+xllcorner;
+	p.y = ((y-ycols)*cellsize)+yllcorner;
+	System.out.println("Point2D toLatitude_and_Longitude :");
+	System.out.println("Point2D :" + x +","+y);
+	System.out.println("Latitude_and_Longitude :" + p.x +","+p.y);
 	return p;
 }
 
