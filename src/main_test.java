@@ -12,8 +12,13 @@ public class main_test {
 
 
 	public static void main(String[] args) throws IOException, InterruptedException {  
+		Read_TIN RT = new Read_TIN();
+		RT.tinFile("N23.tin", "Output_JAVA_N23.tin");
+		
 		Deploy_BS_on_Terrain DBT= new Deploy_BS_on_Terrain();
-		DBT.Deploy("JAVA_N23.txt", "path.txt" , 
+		
+		
+		DBT.Deploy("Output_JAVA_N23.tin", "path.txt" , 
 		 1200,
 		 1200,
 		 119.999583333333,//¥ª¤U¨¤x¸g«×
@@ -22,6 +27,8 @@ public class main_test {
 		 100.0);
 		
 		//TL = RT.read("JAVA_N23.txt");"path.txt"
+		
+
 		
 	}
 	

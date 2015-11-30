@@ -217,17 +217,17 @@ public class Deploy_BS {
 			
 			if(Map.plan_p1.distance(centerls.get(i), centerls.get(i+1))==0){
 				Point3D center = Map.p1;
-				System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
 			}
 			
 			else if(Map.plan_p2.distance(centerls.get(i), centerls.get(i+1))==0){
 				Point3D center = Map.p2;
-				System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
 			}
 			
 			else if(Map.plan_p3.distance(centerls.get(i), centerls.get(i+1))==0){
 				Point3D center = Map.p3;
-				System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
 			}
 			
 			else{

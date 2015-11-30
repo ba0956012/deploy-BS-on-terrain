@@ -92,6 +92,21 @@ public class Read_TIN {
 		
  }
 		 
+public void tinFile(String InputFile, String OutputFil) throws IOException{
+	ArrayList<org.jlab.geom.prim.Point3D> TIN_List = new ArrayList<org.jlab.geom.prim.Point3D>();
+	try {
+		TIN_List = 
+		call_ReadTIN.ReadTIN("readTIN.exe", InputFile);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	System.out.println(TIN_List.size());
+	TIN_File TF = new TIN_File();
+	TF.create_TIN(TIN_List);
+	TF.create_TIN_File(OutputFil);
+}
+
 }
 
  

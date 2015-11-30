@@ -93,8 +93,8 @@ public class mesh_and_plan {
 	project(l.end()).getY()
 	);
 	
-	System.out.println("l:"+l.origin() +","+l.end());
-	System.out.println("L:"+L.getX1()+","+L.getY1()+","+L.getX2()+","+L.getY2());
+	//System.out.println("l:"+l.origin() +","+l.end());
+	//System.out.println("L:"+L.getX1()+","+L.getY1()+","+L.getX2()+","+L.getY2());
 	return L;
 	}
 	
@@ -103,23 +103,23 @@ public class mesh_and_plan {
 		
 		double d = this.p1.distance(p);
 		
-		System.out.println("106: " + d);
-		System.out.println("107: " + this.p2.distance(p));
+		//System.out.println("106: " + d);
+		//System.out.println("107: " + this.p2.distance(p));
 		
 		if(d > 0)
 		{	
 		//this.p1.angle(this.p2, p);
-			System.out.println("112: " + this.p1.angle(this.p2, p));
+			//System.out.println("112: " + this.p1.angle(this.p2, p));
 			
 		P=
 		rotation(this.plan_p2.getX(),this.plan_p2.getY(),this.plan_p1.getX(),this.plan_p1.getY(),  this.p1.angle(this.p2, p));
 		
-		System.out.println("rotation:"+ P.getX()+","+P.getY());
+		//System.out.println("rotation:"+ P.getX()+","+P.getY());
 		
 		Point3D aa = new Point3D(P.x,P.y,p1.getZ());
 		
-		System.out.println("aa :"+ aa.getX()+","+aa.getY());
-		System.out.println("d :"+ d);
+		//System.out.println("aa :"+ aa.getX()+","+aa.getY());
+		//System.out.println("d :"+ d);
 		P=
 		project1(d, p1, aa);	
 		//MaP.plan_p3 = rotation(MaP.plan_p2.getX(),MaP.plan_p2.getY(),MaP.plan_p1.getX(),MaP.plan_p1.getY(),  p1.angle(p2, p3))
@@ -148,11 +148,11 @@ public class mesh_and_plan {
 	{	
 		double d = this.p1.distance(p);
 		//this.p1.angle(this.p2, p);
-		System.out.println("151: " + this.p1.angle(this.p2, p));
+		//System.out.println("151: " + this.p1.angle(this.p2, p));
 		
 		P=
 		rotation(this.plan_p2.getX(),this.plan_p2.getY(),this.plan_p1.getX(),this.plan_p1.getY(),  this.p1.angle(this.p2, p));
-		System.out.println("155: " + P.getX()+","+P.getY());
+		//System.out.println("155: " + P.getX()+","+P.getY());
 		Point3D aa = new Point3D(P.x,P.y,p1.getZ());
 		
 		P=
@@ -260,13 +260,13 @@ public class mesh_and_plan {
 	public static Point2D.Double project1(double D, TIN_Point p, Point3D p1){ //D = distance of p to p1 , project point3D p1 to plan(point3D p and (p1.x ,p1.y, p.z) ) 
 		Point2D.Double P = new Point2D.Double();
 		
-		System.out.println("3D distance :"+ D);
+		//System.out.println("3D distance :"+ D);
 		double dd = p.distance(p1.getX(),p1.getY(),p.getZ());
 		
 		
-		System.out.println("dd distance :"+ dd);
-		System.out.println("TIN p: " + p.getX()+","+p.getY()+","+p.getZ());
-		System.out.println("269 p1 : " + p1.getX()+","+p1.getY()+","+p.getZ());
+		//System.out.println("dd distance :"+ dd);
+		//System.out.println("TIN p: " + p.getX()+","+p.getY()+","+p.getZ());
+		//System.out.println("269 p1 : " + p1.getX()+","+p1.getY()+","+p.getZ());
 		
 		if(D == 0.0)
 		{
@@ -286,9 +286,9 @@ public class mesh_and_plan {
 		 else{	  
 			  d =  (p1.getY()-p.getY()) / dd;
 			  P.y = D * d + p.getY();
-			  System.out.println("P:" + P.getX()+" "+P.getY());
-			  System.out.println("P distance:" + P.distance(p.getX(),p.getY()));
-			  System.out.println("Pp distance:" + p.distance(P.getX(),P.getY(),p.getZ()));
+			  //System.out.println("P:" + P.getX()+" "+P.getY());
+			  //System.out.println("P distance:" + P.distance(p.getX(),p.getY()));
+			 // System.out.println("Pp distance:" + p.distance(P.getX(),P.getY(),p.getZ()));
 			  return P;
 		 }
 		
@@ -336,7 +336,7 @@ public class mesh_and_plan {
 	
 	public Point2D.Double rotation(double x, double y, double h, double k, double angle){
 		
-		System.out.println("316: "+ x +","+y+","+h+","+k+","+angle);
+		//System.out.println("316: "+ x +","+y+","+h+","+k+","+angle);
 		
 		Point2D.Double P = new Point2D.Double(); 
 		double x1, y1;

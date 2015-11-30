@@ -34,9 +34,9 @@ public Point2D toLatitude_and_Longitude(double x, double y){
 	
 	p.x = (x*cellsize)+xllcorner;
 	p.y = ((y-ycols)*cellsize)+yllcorner;
-	System.out.println("Point2D toLatitude_and_Longitude :");
-	System.out.println("Point2D :" + x +","+y);
-	System.out.println("Latitude_and_Longitude :" + p.x +","+p.y);
+	//System.out.println("Point2D toLatitude_and_Longitude :");
+	//System.out.println("Point2D :" + x +","+y);
+	//System.out.println("Latitude_and_Longitude :" + p.x +","+p.y);
 	return p;
 }
 
