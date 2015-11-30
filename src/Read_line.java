@@ -1,6 +1,7 @@
 import java.awt.geom.Line2D;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -44,5 +45,45 @@ public class Read_line {
 	  return l;
 	 }
 	
+	 public void simple(int i, double left,  double down) throws IOException{
+		 FileWriter FW = new FileWriter("testline.txt"); 
+		 double z;
+	 for(int j = 0 ; j<=i;j++){
+		 
+		 if(j==i){
+			 z = Math.random();
+			 z = (int)(Math.random()*1000);
+			 z = z/1000;
+			 double x = left + z; 
+			 
+			 z = Math.random();
+			 z = (int)(Math.random()*1000);
+			 z = z/1000;
+			 double y = down + z;
+			
+			 FW.write(String.valueOf(x)+" "+String.valueOf(y));
+		 }
+		 
+		 else{
+			 z = Math.random();
+			 z = (int)(Math.random()*1000);
+			 z = z/1000;
+			 double x = left + z; 
+			 
+			 z = Math.random();
+			 z = (int)(Math.random()*1000);
+			 z = z/1000;
+			 double y = down + z;
+		 
+			 FW.write(String.valueOf(x)+" "+String.valueOf(y)+"\r\n");
+			 
+		 }
+		 
+	  
+	 
+	 }
+	  FW.close();
+	 }
+
 
 }
