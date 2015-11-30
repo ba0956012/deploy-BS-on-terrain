@@ -52,13 +52,13 @@ public class Read_line {
 		 
 		 if(j==i){
 			 z = Math.random();
-			 z = (int)(Math.random()*1000);
-			 z = z/1000;
+			 z = (int)(Math.random()*10000);
+			 z = z/10000;
 			 double x = left + z; 
 			 
 			 z = Math.random();
-			 z = (int)(Math.random()*1000);
-			 z = z/1000;
+			 z = (int)(Math.random()*10000);
+			 z = z/10000;
 			 double y = down + z;
 			
 			 FW.write(String.valueOf(x)+" "+String.valueOf(y));
@@ -66,13 +66,13 @@ public class Read_line {
 		 
 		 else{
 			 z = Math.random();
-			 z = (int)(Math.random()*1000);
-			 z = z/1000;
+			 z = (int)(Math.random()*10000);
+			 z = z/10000;
 			 double x = left + z; 
 			 
 			 z = Math.random();
-			 z = (int)(Math.random()*1000);
-			 z = z/1000;
+			 z = (int)(Math.random()*10000);
+			 z = z/10000;
 			 double y = down + z;
 		 
 			 FW.write(String.valueOf(x)+" "+String.valueOf(y)+"\r\n");

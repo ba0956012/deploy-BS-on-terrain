@@ -226,35 +226,7 @@ public class mesh_and_plan {
 			P.y = D * d + p.getY();
 			return P;
 		}
-		/*
-		Point2D.Double P = new Point2D.Double();
-		double s;
-		int ss=0;
-		s= D*D/( (point3d.x()*point3d.x()-2*point3d.x()*p.getX()+point3d.x()*point3d.x())
-				+(point3d.y()*point3d.y()-2*point3d.y()*p.getY()+point3d.y()*point3d.y()) );
-		
-		//System.out.println("s:"+s);
-		if(s<0){
-			s=s*-1.0;
-			ss=1;
-		}
-		
-		s = Math.sqrt(s);
-		//System.out.println("s.sqrt:"+s);
-		if(ss==1)
-			s=s*-1.0;
-		
-		P.x=  p.getX()+point3d.x()*s;
-		//System.out.println("P.x:"+P.x);
-		//tmp =  (int)(P.x*point);
-		//P.x = tmp/point;
-		
-		P.y = p.getY()+point3d.y()*s;
-		//P.y = ((int)(P.y*point))/point;
-		
-		//System.out.println("project:"+P.x+","+P.y);
-		return P;
-		*/
+
 	}
 	
 	public static Point2D.Double project1(double D, TIN_Point p, Point3D p1){ //D = distance of p to p1 , project point3D p1 to plan(point3D p and (p1.x ,p1.y, p.z) ) 
@@ -264,9 +236,9 @@ public class mesh_and_plan {
 		double dd = p.distance(p1.getX(),p1.getY(),p.getZ());
 		
 		
-		//System.out.println("dd distance :"+ dd);
-		//System.out.println("TIN p: " + p.getX()+","+p.getY()+","+p.getZ());
-		//System.out.println("269 p1 : " + p1.getX()+","+p1.getY()+","+p.getZ());
+	//	System.out.println("dd distance :"+ dd);
+	//	System.out.println("TIN p: " + p.getX()+","+p.getY()+","+p.getZ());
+	//	System.out.println("269 p1 : " + p1.getX()+","+p1.getY()+","+p.getZ());
 		
 		if(D == 0.0)
 		{
@@ -286,8 +258,8 @@ public class mesh_and_plan {
 		 else{	  
 			  d =  (p1.getY()-p.getY()) / dd;
 			  P.y = D * d + p.getY();
-			  //System.out.println("P:" + P.getX()+" "+P.getY());
-			  //System.out.println("P distance:" + P.distance(p.getX(),p.getY()));
+			 // System.out.println("P:" + P.getX()+" "+P.getY());
+			 // System.out.println("P distance:" + P.distance(p.getX(),p.getY()));
 			 // System.out.println("Pp distance:" + p.distance(P.getX(),P.getY(),p.getZ()));
 			  return P;
 		 }

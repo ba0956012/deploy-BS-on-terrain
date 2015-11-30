@@ -1,5 +1,6 @@
 import java.awt.List;
 import java.awt.Point;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.Arrays;
@@ -119,7 +120,7 @@ import java.awt.Shape;
 	                    continue;
 	                }
 	                if (x <= leftx) {
-	                    hits++;
+	                    hits = 1;
 	                    continue;
 	                }
 	                test1 = x - curx;
@@ -130,7 +131,7 @@ import java.awt.Shape;
 	                    continue;
 	                }
 	                if (x <= leftx) {
-	                    hits++;
+	                    hits = 1;
 	                    continue;
 	                }
 	                test1 = x - lastx;
@@ -138,7 +139,7 @@ import java.awt.Shape;
 	            }
 	  
 	            if (test1 <= (test2 / (lasty - cury) * (lastx - curx))) {
-	                hits++;
+	                hits = 1;
 	            }
 	        }
 	  
@@ -148,5 +149,85 @@ import java.awt.Shape;
 	    public boolean contains(Point2D p) {
 	        return contains(p.getX(), p.getY());
 	    }	
+	    
+	    
+	    public boolean contains1(double x, double y) {
+	        if (npoints <= 2) {
+	        	System.out.println("npoints <= 2");
+	            return false;
+	        }
+	        int hits = 0;
+	  
+	        double lastx = xpoints[npoints - 1];
+	        double lasty = ypoints[npoints - 1];
+	        double curx, cury;
+	  
+	        // Walk the edges of the polygon
+	        for (int i = 0; i < npoints; lastx = curx, lasty = cury, i++) {
+	            curx = xpoints[i];
+	            cury = ypoints[i];
+	  
+	            if (cury == lasty) {
+	                continue;
+	            }
+	  
+	            double leftx;
+	            if (curx < lastx) {
+	                if (x > lastx) {
+	                    continue;
+	                }
+	                leftx = curx;
+	            } else {
+	                if (x > curx) {
+	                    continue;
+	                }
+	                leftx = lastx;
+	            }
+	  
+	            double test1, test2;
+	            if (cury < lasty) {
+	                if (y < cury || y > lasty) {
+	                    continue;
+	                }
+	                if (x <= leftx) {
+	                    hits = 1;
+	                    continue;
+	                }
+	                test1 = x - curx;
+	                test2 = y - cury;
+	            } 
+	            else {
+	                if (y < lasty || y > cury) {
+	                    continue;
+	                }
+	                if (x <= leftx) {
+	                    hits ++;
+	                    continue;
+	                }
+	                test1 = x - lastx;
+	                test2 = y - lasty;
+	            }
+	  
+	            if (test1 <= (test2 / (lasty - cury) * (lastx - curx))) {
+	                hits ++;
+	            }
+	        }
+	        /*
+	        Line2D.Double l = new Line2D.Double();
+	        for(int j=0; j<2; j++){
+	        	l.setLine(this.xpoints[j],this.ypoints[j], this.xpoints[j+1], this.ypoints[j+1]);
+	        	if(l.contains(x,y) == true){
+	        		hits = 1;
+	        	}
+	        }
+	        l.setLine(this.xpoints[2],this.ypoints[2], this.xpoints[0], this.ypoints[0]);
+	        if(l.contains(x,y) == true){
+        		hits = 1;
+        	}
+	        */
+	        return ((hits & 1) != 0);
+	    }
+	    
+	    
 }
 

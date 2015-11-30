@@ -214,31 +214,46 @@ public class Deploy_BS {
 			System.out.println("centerls"+i+":"+centerls.get(i)+","+ centerls.get(i+1));
 			*/
 			
-			
-			if(Map.plan_p1.distance(centerls.get(i), centerls.get(i+1))==0){
+			Polygon2D pol = new Polygon2D();
+			pol.addPoint(Map.plan_p1.x, Map.plan_p1.y);
+			pol.addPoint(Map.plan_p2.x, Map.plan_p2.y);
+			pol.addPoint(Map.plan_p3.x, Map.plan_p3.y);
+		    if(pol.contains(centerls.get(i),centerls.get(i+1))==true)
+		    {	
+				
+		    	if(Map.plan_p1.distance(centerls.get(i), centerls.get(i+1))==0){
 				Point3D center = Map.p1;
 				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
-			}
+		    	}
 			
-			else if(Map.plan_p2.distance(centerls.get(i), centerls.get(i+1))==0){
+		    	else if(Map.plan_p2.distance(centerls.get(i), centerls.get(i+1))==0){
 				Point3D center = Map.p2;
 				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
-			}
+		    	}
 			
-			else if(Map.plan_p3.distance(centerls.get(i), centerls.get(i+1))==0){
+		    	else if(Map.plan_p3.distance(centerls.get(i), centerls.get(i+1))==0){
 				Point3D center = Map.p3;
 				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
-			}
+		    	}
 			
-			else{
-			/*
-			System.out.println("Map.plan_p1:"+Map.plan_p1.x+","+Map.plan_p1.y);
-			System.out.println("Map.plan_p2:"+Map.plan_p2.x+","+Map.plan_p2.y);
-			System.out.println("Map.plan_p3:"+Map.plan_p3.x+","+Map.plan_p3.y);
-			*/
-			Point3D center =
-			Point2D_to_Point3D.Calcute(Map.p1, Map.p2, Map.p3, Map.plan_p1.distance(centerls.get(i), centerls.get(i+1)), Map.plan_p2.distance(centerls.get(i), centerls.get(i+1)),
-					 Map.plan_p3.distance(centerls.get(i), centerls.get(i+1)));
+		    	else{
+			
+		    		System.out.println("Map.plan_p1:"+Map.plan_p1.x+","+Map.plan_p1.y);
+		    		System.out.println("Map.plan_p2:"+Map.plan_p2.x+","+Map.plan_p2.y);
+		    		System.out.println("Map.plan_p3:"+Map.plan_p3.x+","+Map.plan_p3.y);
+		    		System.out.println("Map.plan_p12:"+Map.plan_p1.distance(Map.plan_p2));
+		    		System.out.println("Map.plan_p23:"+Map.plan_p2.distance(Map.plan_p3));
+		    		System.out.println("Map.plan_p13:"+Map.plan_p1.distance(Map.plan_p3));
+		    		System.out.println("Map.p12:"+Map.p1.distance(Map.p2));
+		    		System.out.println("Map.p23:"+Map.p2.distance(Map.p3));
+		    		System.out.println("Map.p13:"+Map.p1.distance(Map.p3));
+			
+				System.out.println("center3D:"+centerls.get(i)+","+centerls.get(i+1));
+					Point3D center =
+					Point2D_to_Point3D.Calcute(Map.p1, Map.p2, Map.p3, 
+							Map.plan_p1.distance(centerls.get(i), centerls.get(i+1)), 
+							Map.plan_p2.distance(centerls.get(i), centerls.get(i+1)),
+							Map.plan_p3.distance(centerls.get(i), centerls.get(i+1)));
 			//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
 			
 			}
@@ -247,7 +262,10 @@ public class Deploy_BS {
 			
 	//		fw1.write(center.getX()+","+center.getY()+","+center.getZ());
 		//	System.out.println("CT3D:"+CT.toLatitude_and_Longitude(center.getX(),center.getY()).getX()+","+CT.toLatitude_and_Longitude(center.getX(),center.getY()).getY()+","+center.getZ());
-		}
+		    }
+		    
+		}    
+		    
 	//		fw1.close();
 		System.out.println("stop" + stop);
 /////////////////////////////////////////////////////////////////////////////////////	

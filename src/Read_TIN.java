@@ -63,6 +63,8 @@ public class Read_TIN {
 				
 			    p.add(tmp_point.clone());
 			    c++;
+			    
+			   // System.out.println(Double.valueOf(tempArray[0]) +","+Double.valueOf(tempArray[1])+","+ Double.valueOf(tempArray[2]));
 			}
 			
 			//if(c>Number_of_Point){
@@ -78,14 +80,20 @@ public class Read_TIN {
 			    tmp_Triangel.p_id = tmp_p_id;
 			    t.add(tmp_Triangel);
 			    c++;
+			    //System.out.println(Double.valueOf(tempArray[0]) +","+Double.valueOf(tempArray[1])+","+ Double.valueOf(tempArray[2]));
+			   
 			}
-				
+			
 		}
-		
+	
 		TIN_List TL = new TIN_List();
 		TL.p_List = p;
-		//System.out.println(Number_of_Point);
-		//System.out.println(t);
+		/*
+		System.out.println(Number_of_Point);
+		System.out.println(TL.p_List.size());
+		System.out.println(Number_of_Triangel);
+		System.out.println(t.size());
+		*/
 		TL.t_List = t;
 		
 		return TL;
