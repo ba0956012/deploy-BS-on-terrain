@@ -58,10 +58,14 @@ public class Read_TIN {
 			else if(c>0&&c<=Number_of_Point){
 				//System.out.println(tempArray[1]);
 				TIN_Point tmp_point = new TIN_Point(Double.valueOf(tempArray[0]),Double.valueOf(tempArray[1]), Double.valueOf(tempArray[2]));
-				tmp_point.id = c;
+				tmp_point.id = c-1;
 				//tmp_point.add(Double.valueOf(tempArray[0]), Double.valueOf(tempArray[1]), Double.valueOf(tempArray[2]));
 				
 			    p.add(tmp_point.clone());
+			  /*  System.out.println("c:"+c);
+			    if(c==Number_of_Point)
+			    	System.out.println("c:"+tempArray[0]+" "+tempArray[1]+" "+tempArray[2]);	
+			   */ 
 			    c++;
 			    
 			   // System.out.println(Double.valueOf(tempArray[0]) +","+Double.valueOf(tempArray[1])+","+ Double.valueOf(tempArray[2]));

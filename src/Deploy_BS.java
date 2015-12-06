@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.jlab.geom.prim.Line3D;
 
@@ -20,9 +24,52 @@ public class Deploy_BS {
 	
 		mesh_and_plan Map = new mesh_and_plan();
 		
+		
+		
+		
 		int jj[] = PK.t.p_id;
+		/*
+		System.out.println(TL.t_List.get(0).p_id[0]+" , "+TL.t_List.get(0).p_id[1]+" , "+TL.t_List.get(0).p_id[2]);
+		
+		System.out.println("PK.t.p_id - "+PK.t.id+ " : " + PK.t.p_id[0]+" , " +PK.t.p_id[1]+" , "+ PK.t.p_id[2]);
 
+		System.out.println("TL.p_List+  : " + TL.p_List.get(0)+" , " +TL.p_List.get(1)+" , "+ TL.p_List.get(2));
+		
+		System.out.println("TL.p_List.get - "+PK.t.id+ " : " + TL.p_List.get(jj[0])+" , " +TL.p_List.get(jj[1])+" , "+ TL.p_List.get(jj[2]));
+		*/
 		Map = Map.mesh_to_plan(TL.p_List.get(jj[0]), TL.p_List.get(jj[1]), TL.p_List.get(jj[2]));
+		
+		Polygon2D pol = new Polygon2D();
+		pol.addPoint(Map.plan_p1.x, Map.plan_p1.y);
+		pol.addPoint(Map.plan_p2.x, Map.plan_p2.y);
+		pol.addPoint(Map.plan_p3.x, Map.plan_p3.y);
+		
+		
+		System.out.println("Map.plan : ");
+		System.out.println(Map.plan_p1.x+","+Map.plan_p1.y);
+		System.out.println(Map.plan_p2.x+","+Map.plan_p2.y);
+		System.out.println(Map.plan_p3.x+","+Map.plan_p3.y);
+		
+		
+		Line2D.Double l12 = new Line2D.Double();
+		l12.setLine(Map.plan_p1, Map.plan_p2);
+		Line2D.Double l13 = new Line2D.Double();
+		l13.setLine(Map.plan_p1, Map.plan_p3);
+		Line2D.Double l23 = new Line2D.Double();
+		l23.setLine(Map.plan_p2, Map.plan_p3);
+		
+		/*
+		System.out.println("map plan point : ");
+		System.out.println(Map.plan_p1.x+" , " + Map.plan_p1.y);
+		System.out.println(Map.plan_p2.x+" , " + Map.plan_p2.y);
+		System.out.println(Map.plan_p3.x+" , " + Map.plan_p3.y);
+		
+		System.out.println("map TIN point : ");
+		System.out.println(Map.p1.getX()+" , " + Map.p1.getY()+" , "+ Map.p1.getZ());
+		System.out.println(Map.p2.getX()+" , " + Map.p2.getY()+" , "+ Map.p2.getZ());
+		System.out.println(Map.p3.getX()+" , " + Map.p3.getY()+" , "+ Map.p3.getZ());
+		*/
+		
 		//System.out.println("DBS26: "+Map.plan_p3);
 		//System.out.println("DBS27: "+Map.project(Map.p3));
 		
@@ -38,11 +85,22 @@ public class Deploy_BS {
 			//System.out.println("DS32:"+line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])).getX1());
 			//L_list .add(line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])));
 			Line2D.Double l = new Line2D.Double();
+			System.out.println("Line :" + ii);
 			
-			
-				
+			//PK.Line.get(ii).show();
 			
 			l = Map.project(PK.Line.get(ii));
+			/*			
+			System.out.println(l.getX1()+","+l.getY1());
+			System.out.println(l.getX2()+","+l.getY2());
+			System.out.println("dist : ");
+			System.out.println( TL.p_List.get(jj[0]).distance(PK.Line.get(ii).origin()) );
+			System.out.println( TL.p_List.get(jj[1]).distance(PK.Line.get(ii).origin()) );
+			System.out.println( TL.p_List.get(jj[2]).distance(PK.Line.get(ii).origin()) );
+			System.out.println( l.getP1().distance(Map.plan_p1) );
+			System.out.println( l.getP1().distance(Map.plan_p2) );
+			System.out.println( l.getP1().distance(Map.plan_p3) ) ;
+			*/
 			
 			/*
 			System.out.println("DS33:"+ TL.p_List.get(jj[0]).getX()+","+TL.p_List.get(jj[0]).getY());
@@ -107,12 +165,16 @@ public class Deploy_BS {
 
 				h = linels.get(j);
 				k = linels.get(j + 1);
-				x1 = h - 0.0001;
+				
+				x1 = h + 1;
 				y1 = k + 2;
+				
 				x2 = h;
 				y2 = k;
-				x3 = h + 0.00001;
-				y3 = k - 2;
+				
+				x3 = h + 1;
+				y3 = k - 1;
+				
 				line(h, k, x1, y1);
 				a1 = ls.get(0);
 				b1 = ls.get(1);
@@ -125,25 +187,700 @@ public class Deploy_BS {
 				a3 = ls.get(0);
 				b3 = ls.get(1);
 				c3 = ls.get(2);
-
+				
+				
+				//System.out.println("angular: ");
+				//System.out.println(ls.get(0));
+				//System.out.println(ls.get(1));
+				/*
+				if(pol.contains(h,k))
+				{
 				centerls.add(h);
 				centerls.add(k);
+				}
+				*/
 				
+				
+				centerls.add(h);
+				centerls.add(k);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+				Point2D.Double fist_center= new Point2D.Double();
+				fist_center.x = h;
+				fist_center.y = k;
 			
+			center_on_angular(a3, b3, c3, h, k, r, x1, y1, x2, y2, x3, y3);
 				
-				center_on_angular(a3, b3, c3, h, k, r, x1, y1, x2, y2, x3, y3);
+				
 				double h1, k1;
+				
 				h1 = ls.get(0);
 				k1 = ls.get(1);
+				
+				
+				
+				
+				if(!pol.contains(h1,k1))
+				{
+					/*
+					Line2D.Double l12 = new Line2D.Double();
+					l12.setLine(Map.plan_p1, Map.plan_p2);
+					Line2D.Double l13 = new Line2D.Double();
+					l13.setLine(Map.plan_p1, Map.plan_p3);
+					Line2D.Double l23 = new Line2D.Double();
+					l23.setLine(Map.plan_p2, Map.plan_p3);
+					*/
+				Line2D.Double hk= new Line2D.Double();
+				hk.setLine(h1, k1, h, k);
+				/*
+				System.out.println("pol.contains(h1,k1)*************************** ");
+				System.out.println(h1 +" , "+k1 );
+				System.out.println(pol.contains(h1,k1) );
+				
+				System.out.println("l12 :");
+				System.out.println(l12.x1+" , "+l12.y1);
+				System.out.println(l12.x2+" , "+l12.y2);
+				System.out.println("l13 :");
+				System.out.println(l13.x1+" , "+l13.y1);
+				System.out.println(l13.x2+" , "+l13.y2);
+				System.out.println("l23 :");
+				System.out.println(l23.x1+" , "+l23.y1);
+				System.out.println(l23.x2+" , "+l23.y2);
+				
+				System.out.println("h1 k1");
+				System.out.println(h1+" , "+k1);
+				*/
+				if(l12.intersectsLine(h1, k1, h, k)){
+					Point2D.Double IntersectionPoint = new Point2D.Double();
+					IntersectionPoint = getIntersectionPoint(hk,l12);	
+					centerls.add(IntersectionPoint.getX());
+					centerls.add(IntersectionPoint.getY());
+					System.out.println("l12********************************* : ");
+					System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
+				}
+				
+				else if(l13.intersectsLine(h1, k1, h, k)){
+					Point2D.Double IntersectionPoint = new Point2D.Double();
+					IntersectionPoint = getIntersectionPoint(hk,l13);
+					
+					
+					System.out.println("IntersectionPoint");
+					
+					System.out.println(IntersectionPoint.getX()+" , "+IntersectionPoint.getY());
+					
+					
+					centerls.add(IntersectionPoint.getX());
+					centerls.add(IntersectionPoint.getY());
+					System.out.println("l13********************************* : ");
+					System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
+				}
+				
+				else if(l23.intersectsLine(h1, k1, h, k)){	
+					Point2D.Double IntersectionPoint = new Point2D.Double();
+					IntersectionPoint = getIntersectionPoint(hk,l23);	
+					centerls.add(IntersectionPoint.getX());
+					centerls.add(IntersectionPoint.getY());
+					System.out.println("l23********************************* : ");
+					System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
+				}
+				
+				else{
+					System.out.println("l23121212112121212121212121 : ");
+					centerls.add(h);
+					centerls.add(k);
+				}
+				
+				}
+				
+				
+				else{
+					System.out.println("pol.contains(h1,k1) is  :"+ pol.contains(h1,k1) +"********************************* ");	
+					
 				centerls.add(h1);
 				centerls.add(k1);
-				rotation_1(h1, k1, h, k);
+				}
+				
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+				
+				double dist = Point2D.Double.distance(h1, k1, h, k);
+				
+				rotation_1(h1, k1, h, k); //ls.get(0)ls.get(1)
+				
+				if(pol.contains(ls.get(0),ls.get(1)))
+				{
+					System.out.println("rotation_1 contains");
+					System.out.println(ls.get(0)+" , "+ls.get(1));
 				centerls.add(ls.get(0));
 				centerls.add(ls.get(1));
+				}
+				
+				
+				
+				
+				else
+				{
+					System.out.println("307++++++++++++++++++++++++++++++++++");
+					Point2D.Double r1= new Point2D.Double(ls.get(0),ls.get(1));
+				 
+				 if(l12.ptLineDist(r1) <= l13.ptLineDist(r1)&&l12.ptLineDist(r1)<= l23.ptLineDist(r1)){
+					 System.out.println("311++++++++++++++++++++++++++++++++++");
+					 Point2D.Double l12_1= new Point2D.Double(l12.x1,l12.y1);
+							 Point2D.Double l12_2= new Point2D.Double(l12.x2,l12.y2);
+							 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
+							 List.clear();
+							 List = getCircleLineIntersectionPoint(l12_1,l12_2,fist_center,dist);
+					
+					 
+					if(List.size()==0){
+						System.out.println("318++++++++++++++++++++++++++++++++++");
+						if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+							centerls.add(Map.plan_p1.x);
+							centerls.add(Map.plan_p1.y);
+						}
+						else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
+							System.out.println("324++++++++++++++++++++++++++++++++++");
+							centerls.add(Map.plan_p2.x);
+							centerls.add(Map.plan_p2.y);
+						}
+						else{
+							System.out.println("329++++++++++++++++++++++++++++++++++");
+						}
+					}	
+					else if( List.size()==1){
+						System.out.println("333-------------------------");
+						
+						centerls.add(List.get(0).x);
+						centerls.add(List.get(0).y);
+						
+					}
+					
+					else if( List.size()==2){
+						System.out.println("340++++++++++++++++++++++++++++++++++");
+						if(r1.distance(List.get(0).x,List.get(0).y)<
+						r1.distance(List.get(1).x,List.get(1).y)){
+							
+							if(pol.contains(List.get(0).x,List.get(0).y)){
+								System.out.println("360-------------------------");
+								System.out.println(List.get(0).x+" , "+List.get(0).y);
+								centerls.add(List.get(0).x);
+								centerls.add(List.get(0).y);
+							}
+							
+							else{
+								if(l12.getP1().distance(List.get(0).x,List.get(0).y)
+								   <l12.getP2().distance(List.get(0).x,List.get(0).y)){
+									
+									centerls.add(Map.plan_p1.x);
+									centerls.add(Map.plan_p1.y);
+								}
+								else{
+									centerls.add(Map.plan_p2.x);
+									centerls.add(Map.plan_p2.y);
+								}
+							}
+							
+							
+						}
+						
+						else{
+							System.out.println("347++++++++++++++++++++++++++++++++++");
+							if(pol.contains(List.get(1).x,List.get(1).y)){
+								System.out.println("383-------------------------");
+								System.out.println(List.get(1).x+" , "+List.get(1).y);
+								centerls.add(List.get(1).x);
+								centerls.add(List.get(1).y);
+								}
+								else{
+									if(l12.getP1().distance(List.get(1).x,List.get(1).y)
+									   <l12.getP2().distance(List.get(1).x,List.get(1).y)){
+										centerls.add(Map.plan_p1.x);
+										centerls.add(Map.plan_p1.y);
+									}
+									else{
+										centerls.add(Map.plan_p2.x);
+										centerls.add(Map.plan_p2.y);
+									}
+								}
+						}					
+					}
+					
+					
+					 //getCircleLineIntersectionPoint(Point2D.Double pointA,
+					 //	Point2D.Double pointB, Point2D.Double center, double radius)
+					 
+				 }
+				 
+				 else if(l13.ptLineDist(r1) <= l12.ptLineDist(r1)&&l13.ptLineDist(r1)<= l23.ptLineDist(r1)){
+					 System.out.println("361++++++++++++++++++++++++++++++++++");
+					 Point2D.Double l13_1= new Point2D.Double(l13.x1,l13.y1);
+					 Point2D.Double l13_2= new Point2D.Double(l13.x2,l13.y2);
+					 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
+					 List = getCircleLineIntersectionPoint(l13_1,l13_2,fist_center,dist);
+					 
+						if(List.size()==0){
+							System.out.println("318++++++++++++++++++++++++++++++++++");
+							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+								centerls.add(Map.plan_p1.x);
+								centerls.add(Map.plan_p1.y);
+							}
+							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
+								System.out.println("324++++++++++++++++++++++++++++++++++");
+								centerls.add(Map.plan_p2.x);
+								centerls.add(Map.plan_p2.y);
+							}
+							else{
+								System.out.println("329++++++++++++++++++++++++++++++++++");
+							}
+						}	
+						else if( List.size()==1){
+							System.out.println("333++++++++++++++++++++++++++++++++++");
+							
+							centerls.add(List.get(0).x);
+							centerls.add(List.get(0).y);
+							
+						}
+						
+						else if( List.size()==2){
+							System.out.println("340++++++++++++++++++++++++++++++++++");
+							if(r1.distance(List.get(0).x,List.get(0).y)<
+							r1.distance(List.get(1).x,List.get(1).y)){
+								System.out.println("446++++++++++++++++++++++++++++++++++");
+								System.out.println(List.get(0).x+" , "+List.get(0).y);
+								
+								if(pol.contains(List.get(0).x,List.get(0).y)){
+									System.out.println("449++++++++++++++++++++++++++++++++++");
+									
+									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
+									System.out.println(pol.get_xpoint(1)+" , "+pol.get_ypoint(1));
+									System.out.println(pol.get_xpoint(2)+" , "+pol.get_ypoint(2));
+									
+									System.out.println("455++++++++++++++++++++++++++++++++++");
+												
+									System.out.println(List.get(0).x+" , "+List.get(0).y);
+									
+								centerls.add(List.get(0).x);
+								centerls.add(List.get(0).y);
+								}
+								
+								else{
+									
+									if(l13.getP1().distance(List.get(0).x,List.get(0).y)
+									   <l13.getP2().distance(List.get(0).x,List.get(0).y)){
+										System.out.println("455++++++++++++++++++++++++++++++++++");
+										centerls.add(Map.plan_p1.x);
+										centerls.add(Map.plan_p1.y);
+									}
+									else{
+										System.out.println("460++++++++++++++++++++++++++++++++++");
+										centerls.add(Map.plan_p3.x);
+										centerls.add(Map.plan_p3.y);
+									}
+								}
+								
+							}
+							else{
+								System.out.println("347++++++++++++++++++++++++++++++++++");
+								if(pol.contains(List.get(1).x,List.get(1).y)){
+									System.out.println(List.get(1).x+" , "+List.get(1).y);
+									centerls.add(List.get(1).x);
+									centerls.add(List.get(1).y);
+									}
+									else{
+										if(l13.getP1().distance(List.get(1).x,List.get(1).y)
+										   <l13.getP2().distance(List.get(1).x,List.get(1).y)){
+											centerls.add(Map.plan_p1.x);
+											centerls.add(Map.plan_p1.y);
+										}
+										else{
+											centerls.add(Map.plan_p3.x);
+											centerls.add(Map.plan_p3.y);
+										}
+									}
+							}					
+						}
+				 }
+				 
+				 
+				 else if(l23.ptLineDist(r1) < l13.ptLineDist(r1)&&l23.ptLineDist(r1)< l12.ptLineDist(r1)){
+					 System.out.println("403++++++++++++++++++++++++++++++++++");
+					 Point2D.Double l23_1= new Point2D.Double(l23.x1,l23.y1);
+					 Point2D.Double l23_2= new Point2D.Double(l23.x2,l23.y2);
+					 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
+					 List = getCircleLineIntersectionPoint(l23_1,l23_2,fist_center,dist);
+			 
+						if(List.size()==0){
+							System.out.println("318++++++++++++++++++++++++++++++++++");
+							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+								centerls.add(Map.plan_p1.x);
+								centerls.add(Map.plan_p1.y);
+							}
+							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
+								System.out.println("324++++++++++++++++++++++++++++++++++");
+								centerls.add(Map.plan_p2.x);
+								centerls.add(Map.plan_p2.y);
+							}
+							else{
+								System.out.println("329++++++++++++++++++++++++++++++++++");
+							}
+						}	
+						else if( List.size()==1){
+							System.out.println("333++++++++++++++++++++++++++++++++++");
+							
+							centerls.add(List.get(0).x);
+							centerls.add(List.get(0).y);
+							
+						}
+						
+						else if( List.size()==2){
+							System.out.println("340++++++++++++++++++++++++++++++++++");
+							if(r1.distance(List.get(0).x,List.get(0).y)<
+							r1.distance(List.get(1).x,List.get(1).y)){
+								
+								System.out.println(List.get(0).x+" , "+List.get(0).y);
+								
+								if(pol.contains(List.get(0).x,List.get(0).y)){
+									System.out.println("540++++++++++++++++++++++++++++++++++");
+									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
+									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(1));
+									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(2));
+									System.out.println(List.get(0).x+" , "+List.get(0).y);
+								centerls.add(List.get(0).x);
+								centerls.add(List.get(0).y);
+								}
+								else{
+									if(l23.getP1().distance(List.get(0).x,List.get(0).y)
+									   <l23.getP2().distance(List.get(0).x,List.get(0).y)){
+										
+										centerls.add(Map.plan_p2.x);
+										centerls.add(Map.plan_p2.y);
+									}
+									else{
+										centerls.add(Map.plan_p3.x);
+										centerls.add(Map.plan_p3.y);
+									}
+								}
+								
+							}
+							else{
+								System.out.println("347++++++++++++++++++++++++++++++++++");
+								if(pol.contains(List.get(1).x,List.get(1).y)){
+									System.out.println(List.get(1).x+" , "+List.get(1).y);
+									centerls.add(List.get(1).x);
+									centerls.add(List.get(1).y);
+									}
+									else{
+										if(l23.getP1().distance(List.get(1).x,List.get(1).y)
+										   <l23.getP2().distance(List.get(1).x,List.get(1).y)){
+											centerls.add(Map.plan_p2.x);
+											centerls.add(Map.plan_p2.y);
+										}
+										else{
+											centerls.add(Map.plan_p3.x);
+											centerls.add(Map.plan_p3.y);
+										}
+									}
+							}					
+						}
+	 
+				 }
+				 
+				}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+//double dist = Point2D.Double.distance(h1, k1, h, k);
+			
+				rotation_2(h1, k1, h, k); //ls.get(0)ls.get(1)
+				
+				if(pol.contains(ls.get(0),ls.get(1)))
+				{
+					System.out.println("rotation_2 contains");
+					System.out.println(ls.get(0)+" , "+ls.get(1));
+				centerls.add(ls.get(0));
+				centerls.add(ls.get(1));
+				}
+				
+				
+				
+				
+				else
+				{
+					System.out.println("307++++++++++++++++++++++++++++++++++");
+					Point2D.Double r1= new Point2D.Double(ls.get(0),ls.get(1));
+				 
+				 if(l12.ptLineDist(r1) <= l13.ptLineDist(r1)&&l12.ptLineDist(r1)<= l23.ptLineDist(r1)){
+					 System.out.println("311++++++++++++++++++++++++++++++++++");
+					 Point2D.Double l12_1= new Point2D.Double(l12.x1,l12.y1);
+							 Point2D.Double l12_2= new Point2D.Double(l12.x2,l12.y2);
+							 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
+							 List.clear();
+							 List = getCircleLineIntersectionPoint(l12_1,l12_2,fist_center,dist);
+					
+					 
+					if(List.size()==0){
+						System.out.println("318++++++++++++++++++++++++++++++++++");
+						if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+							centerls.add(Map.plan_p1.x);
+							centerls.add(Map.plan_p1.y);
+						}
+						else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
+							System.out.println("324++++++++++++++++++++++++++++++++++");
+							centerls.add(Map.plan_p2.x);
+							centerls.add(Map.plan_p2.y);
+						}
+						else{
+							System.out.println("329++++++++++++++++++++++++++++++++++");
+						}
+					}	
+					else if( List.size()==1){
+						System.out.println("333-------------------------");
+						
+						centerls.add(List.get(0).x);
+						centerls.add(List.get(0).y);
+						
+					}
+					
+					else if( List.size()==2){
+						System.out.println("340++++++++++++++++++++++++++++++++++");
+						if(r1.distance(List.get(0).x,List.get(0).y)<
+						r1.distance(List.get(1).x,List.get(1).y)){
+							
+							if(pol.contains(List.get(0).x,List.get(0).y)){
+								System.out.println("360-------------------------");
+								System.out.println(List.get(0).x+" , "+List.get(0).y);
+								centerls.add(List.get(0).x);
+								centerls.add(List.get(0).y);
+							}
+							
+							else{
+								if(l12.getP1().distance(List.get(0).x,List.get(0).y)
+								   <l12.getP2().distance(List.get(0).x,List.get(0).y)){
+									
+									centerls.add(Map.plan_p1.x);
+									centerls.add(Map.plan_p1.y);
+								}
+								else{
+									centerls.add(Map.plan_p2.x);
+									centerls.add(Map.plan_p2.y);
+								}
+							}
+							
+							
+						}
+						
+						else{
+							System.out.println("347++++++++++++++++++++++++++++++++++");
+							if(pol.contains(List.get(1).x,List.get(1).y)){
+								System.out.println("383-------------------------");
+								System.out.println(List.get(1).x+" , "+List.get(1).y);
+								centerls.add(List.get(1).x);
+								centerls.add(List.get(1).y);
+								}
+								else{
+									if(l12.getP1().distance(List.get(1).x,List.get(1).y)
+									   <l12.getP2().distance(List.get(1).x,List.get(1).y)){
+										centerls.add(Map.plan_p1.x);
+										centerls.add(Map.plan_p1.y);
+									}
+									else{
+										centerls.add(Map.plan_p2.x);
+										centerls.add(Map.plan_p2.y);
+									}
+								}
+						}					
+					}
+					
+					
+					 //getCircleLineIntersectionPoint(Point2D.Double pointA,
+					 //	Point2D.Double pointB, Point2D.Double center, double radius)
+					 
+				 }
+				 
+				 else if(l13.ptLineDist(r1) <= l12.ptLineDist(r1)&&l13.ptLineDist(r1)<= l23.ptLineDist(r1)){
+					 System.out.println("361++++++++++++++++++++++++++++++++++");
+					 Point2D.Double l13_1= new Point2D.Double(l13.x1,l13.y1);
+					 Point2D.Double l13_2= new Point2D.Double(l13.x2,l13.y2);
+					 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
+					 List = getCircleLineIntersectionPoint(l13_1,l13_2,fist_center,dist);
+					 
+						if(List.size()==0){
+							System.out.println("318++++++++++++++++++++++++++++++++++");
+							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+								centerls.add(Map.plan_p1.x);
+								centerls.add(Map.plan_p1.y);
+							}
+							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
+								System.out.println("324++++++++++++++++++++++++++++++++++");
+								centerls.add(Map.plan_p2.x);
+								centerls.add(Map.plan_p2.y);
+							}
+							else{
+								System.out.println("329++++++++++++++++++++++++++++++++++");
+							}
+						}	
+						else if( List.size()==1){
+							System.out.println("333++++++++++++++++++++++++++++++++++");
+							
+							centerls.add(List.get(0).x);
+							centerls.add(List.get(0).y);
+							
+						}
+						
+						else if( List.size()==2){
+							System.out.println("340++++++++++++++++++++++++++++++++++");
+							if(r1.distance(List.get(0).x,List.get(0).y)<
+							r1.distance(List.get(1).x,List.get(1).y)){
+								System.out.println("446++++++++++++++++++++++++++++++++++");
+								System.out.println(List.get(0).x+" , "+List.get(0).y);
+								
+								if(pol.contains(List.get(0).x,List.get(0).y)){
+									System.out.println("449++++++++++++++++++++++++++++++++++");
+									
+									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
+									System.out.println(pol.get_xpoint(1)+" , "+pol.get_ypoint(1));
+									System.out.println(pol.get_xpoint(2)+" , "+pol.get_ypoint(2));
+									
+									System.out.println("455++++++++++++++++++++++++++++++++++");
+												
+									System.out.println(List.get(0).x+" , "+List.get(0).y);
+									
+								centerls.add(List.get(0).x);
+								centerls.add(List.get(0).y);
+								}
+								
+								else{
+									
+									if(l13.getP1().distance(List.get(0).x,List.get(0).y)
+									   <l13.getP2().distance(List.get(0).x,List.get(0).y)){
+										System.out.println("455++++++++++++++++++++++++++++++++++");
+										centerls.add(Map.plan_p1.x);
+										centerls.add(Map.plan_p1.y);
+									}
+									else{
+										System.out.println("460++++++++++++++++++++++++++++++++++");
+										centerls.add(Map.plan_p3.x);
+										centerls.add(Map.plan_p3.y);
+									}
+								}
+								
+							}
+							else{
+								System.out.println("347++++++++++++++++++++++++++++++++++");
+								if(pol.contains(List.get(1).x,List.get(1).y)){
+									System.out.println(List.get(1).x+" , "+List.get(1).y);
+									centerls.add(List.get(1).x);
+									centerls.add(List.get(1).y);
+									}
+									else{
+										if(l13.getP1().distance(List.get(1).x,List.get(1).y)
+										   <l13.getP2().distance(List.get(1).x,List.get(1).y)){
+											centerls.add(Map.plan_p1.x);
+											centerls.add(Map.plan_p1.y);
+										}
+										else{
+											centerls.add(Map.plan_p3.x);
+											centerls.add(Map.plan_p3.y);
+										}
+									}
+							}					
+						}
+				 }
+				 
+				 
+				 else if(l23.ptLineDist(r1) < l13.ptLineDist(r1)&&l23.ptLineDist(r1)< l12.ptLineDist(r1)){
+					 System.out.println("403++++++++++++++++++++++++++++++++++");
+					 Point2D.Double l23_1= new Point2D.Double(l23.x1,l23.y1);
+					 Point2D.Double l23_2= new Point2D.Double(l23.x2,l23.y2);
+					 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
+					 List = getCircleLineIntersectionPoint(l23_1,l23_2,fist_center,dist);
+			 
+						if(List.size()==0){
+							System.out.println("318++++++++++++++++++++++++++++++++++");
+							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+								centerls.add(Map.plan_p1.x);
+								centerls.add(Map.plan_p1.y);
+							}
+							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
+								System.out.println("324++++++++++++++++++++++++++++++++++");
+								centerls.add(Map.plan_p2.x);
+								centerls.add(Map.plan_p2.y);
+							}
+							else{
+								System.out.println("329++++++++++++++++++++++++++++++++++");
+							}
+						}	
+						else if( List.size()==1){
+							System.out.println("333++++++++++++++++++++++++++++++++++");
+							
+							centerls.add(List.get(0).x);
+							centerls.add(List.get(0).y);
+							
+						}
+						
+						else if( List.size()==2){
+							System.out.println("340++++++++++++++++++++++++++++++++++");
+							if(r1.distance(List.get(0).x,List.get(0).y)<
+							r1.distance(List.get(1).x,List.get(1).y)){
+								
+								System.out.println(List.get(0).x+" , "+List.get(0).y);
+								
+								if(pol.contains(List.get(0).x,List.get(0).y)){
+									System.out.println("540++++++++++++++++++++++++++++++++++");
+									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
+									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(1));
+									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(2));
+									System.out.println(List.get(0).x+" , "+List.get(0).y);
+								centerls.add(List.get(0).x);
+								centerls.add(List.get(0).y);
+								}
+								else{
+									if(l23.getP1().distance(List.get(0).x,List.get(0).y)
+									   <l23.getP2().distance(List.get(0).x,List.get(0).y)){
+										
+										centerls.add(Map.plan_p2.x);
+										centerls.add(Map.plan_p2.y);
+									}
+									else{
+										centerls.add(Map.plan_p3.x);
+										centerls.add(Map.plan_p3.y);
+									}
+								}
+								
+							}
+							else{
+								System.out.println("347++++++++++++++++++++++++++++++++++");
+								if(pol.contains(List.get(1).x,List.get(1).y)){
+									System.out.println(List.get(1).x+" , "+List.get(1).y);
+									centerls.add(List.get(1).x);
+									centerls.add(List.get(1).y);
+									}
+									else{
+										if(l23.getP1().distance(List.get(1).x,List.get(1).y)
+										   <l23.getP2().distance(List.get(1).x,List.get(1).y)){
+											centerls.add(Map.plan_p2.x);
+											centerls.add(Map.plan_p2.y);
+										}
+										else{
+											centerls.add(Map.plan_p3.x);
+											centerls.add(Map.plan_p3.y);
+										}
+									}
+							}					
+						}
+	 
+				 }
+				 
+				}
+				
+	///////////////////////////////////////////////////////////////////////////////////////////////////////			
+				
+				/*
 				rotation_2(h1, k1, h, k);
+				
+				
+			
 				centerls.add(ls.get(0));
 				centerls.add(ls.get(1));
-
+				*/
+				
+///////////////////////////////////////////////////////////////////////////////////////////////////////				
 				
 				
 				//for (i = 0; i < centerls.size(); i++)
@@ -183,13 +920,16 @@ public class Deploy_BS {
 
 					for (i = 0; i < newlinels.size(); i++)
 						linels.add(newlinels.get(i));
-
-					//System.out.println("stop:" + stop);
-					//System.out.println("z:" + z);
-					//System.out.println("centerls.size:" + centerls.size());
-					//for (i = 0; i < linels.size(); i++)
-					//	System.out.println("linels:" + linels.get(i));
-					//System.out.println("linels size:" + i);
+/*
+					System.out.println("stop:" + stop);
+					System.out.println("z:" + z);
+					System.out.println("centerls.size:" + centerls.size());
+*/
+					
+			//		for (i = 0; i < linels.size(); i++)
+			//			System.out.println("linels:" + linels.get(i));
+			
+					System.out.println("linels size:" + i);
 				}
 
 				if (linels.size() == 0)
@@ -198,49 +938,66 @@ public class Deploy_BS {
 
 			} while (stop == 0);
 	/////////////////////////////////////////////////////////////////////////////////
+		for(i=0;i<PK.Line.size();i++){
+			PK.Line.get(i).show();
+			Line2D.Double l = new Line2D.Double();
+			l = Map.project(PK.Line.get(i));
+			System.out.println("Line2D : " + l.getX1()+" , "+l.getY1()+" , "+ l.getX2()+" , "+ l.getY2());
+		}
 		
-		//for(i=0;i<centerls.size();i++)
-		// System.out.println("centerls:"+centerls.get(i));
+		/*
+		System.out.println("centerls:");	
+		for(i=0;i<centerls.size();i++)
+		 System.out.println(centerls.get(i));
+		*/
+		 
 ///////////////////////////////////////////////////////////////////////////////////// ls point to point3D		
 		//	FileWriter fw1 = new FileWriter("center.txt",true);
 			
-			
+			 ArrayList<Point3D> center = new ArrayList<Point3D>();
 			
 			for(i=0;i<centerls.size();i=i+2){
 			/*
 			System.out.println("D224:" +Map.plan_p1.x+","+Map.plan_p1.y);	
 			System.out.println("D224:" +Map.plan_p2.x+","+Map.plan_p2.y);	
 			System.out.println("D224:" +Map.plan_p3.x+","+Map.plan_p3.y);
-			System.out.println("centerls"+i+":"+centerls.get(i)+","+ centerls.get(i+1));
 			*/
+			System.out.println("centerls"+i+":"+centerls.get(i)+","+ centerls.get(i+1));
 			
-			Polygon2D pol = new Polygon2D();
-			pol.addPoint(Map.plan_p1.x, Map.plan_p1.y);
-			pol.addPoint(Map.plan_p2.x, Map.plan_p2.y);
-			pol.addPoint(Map.plan_p3.x, Map.plan_p3.y);
-		    if(pol.contains(centerls.get(i),centerls.get(i+1))==true)
-		    {	
+			
+			
+			
+		   // if(pol.contains(centerls.get(i),centerls.get(i+1))==true)
+		   // {	
 				
 		    	if(Map.plan_p1.distance(centerls.get(i), centerls.get(i+1))==0){
-				Point3D center = Map.p1;
-				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+				Point3D p = Map.p1;
+				center.add(p);
+				//System.out.println("center3D:"+p.getX()+","+p.getX()+","+p.getZ());
 		    	}
 			
 		    	else if(Map.plan_p2.distance(centerls.get(i), centerls.get(i+1))==0){
-				Point3D center = Map.p2;
-				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+				Point3D p = Map.p2;
+				center.add(p);
+				//System.out.println("center3D:"+p.getX()+","+p.getX()+","+p.getZ());
 		    	}
 			
 		    	else if(Map.plan_p3.distance(centerls.get(i), centerls.get(i+1))==0){
-				Point3D center = Map.p3;
-				//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+				Point3D p = Map.p3;
+				center.add(p);
+				//System.out.println("center3D:"+p.getX()+","+p.getX()+","+p.getZ());
 		    	}
 			
 		    	else{
-			
+			/*
 		    		System.out.println("Map.plan_p1:"+Map.plan_p1.x+","+Map.plan_p1.y);
 		    		System.out.println("Map.plan_p2:"+Map.plan_p2.x+","+Map.plan_p2.y);
 		    		System.out.println("Map.plan_p3:"+Map.plan_p3.x+","+Map.plan_p3.y);
+		    		
+		    		System.out.println("Map.p1:"+Map.p1.getX()+","+Map.p1.getY()+","+Map.p1.getZ());
+		    		System.out.println("Map.p2:"+Map.p2.getX()+","+Map.p2.getY()+","+Map.p2.getZ());
+		    		System.out.println("Map.p3:"+Map.p3.getX()+","+Map.p3.getY()+","+Map.p3.getZ());
+		    		
 		    		System.out.println("Map.plan_p12:"+Map.plan_p1.distance(Map.plan_p2));
 		    		System.out.println("Map.plan_p23:"+Map.plan_p2.distance(Map.plan_p3));
 		    		System.out.println("Map.plan_p13:"+Map.plan_p1.distance(Map.plan_p3));
@@ -248,15 +1005,24 @@ public class Deploy_BS {
 		    		System.out.println("Map.p23:"+Map.p2.distance(Map.p3));
 		    		System.out.println("Map.p13:"+Map.p1.distance(Map.p3));
 			
-				System.out.println("center3D:"+centerls.get(i)+","+centerls.get(i+1));
-					Point3D center =
-					Point2D_to_Point3D.Calcute(Map.p1, Map.p2, Map.p3, 
-							Map.plan_p1.distance(centerls.get(i), centerls.get(i+1)), 
-							Map.plan_p2.distance(centerls.get(i), centerls.get(i+1)),
-							Map.plan_p3.distance(centerls.get(i), centerls.get(i+1)));
-			//System.out.println("center3D:"+center.getX()+","+center.getY()+","+center.getZ());
+				System.out.println("center2D:"+centerls.get(i)+","+centerls.get(i+1));
+				*/
+					Point2D.Double center2D = new Point2D.Double(centerls.get(i), centerls.get(i+1));
+					
+					
+					System.out.println("center2D : "+center2D.getX()+","+center2D.getY());
+					
+					
+		    		Point3D p =
+					Point2D_to_Point3D.Calcute(Map, center2D);
+					center.add(p);
+					
+					
+					
+			System.out.println("center3D:"+p.getX()+","+p.getY()+","+p.getZ());
 			
-			}
+			
+			//}
 			//System.out.println("center2D:"+centerls.get(i)+","+centerls.get(i+1));
 			
 			
@@ -267,8 +1033,11 @@ public class Deploy_BS {
 		}    
 		    
 	//		fw1.close();
-		System.out.println("stop" + stop);
+		//System.out.println("stop" + stop);
 /////////////////////////////////////////////////////////////////////////////////////	
+			
+			
+			
 	/*	
 		if(centerls.size()>0){
 			System.out.println("centerls");
@@ -289,13 +1058,19 @@ public class Deploy_BS {
 			//File file = new File("center.csv");
 			FileWriter fw1 = new FileWriter("center.txt",true);
 			
-			for (i = 0; i < centerls.size(); i = i + 2) {
+			for (i = 0; i < center.size(); i++) {
+				
+				
 				//CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getX();
 				
-				String b = String.valueOf(CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getX());
-				String bb =  String.valueOf(CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getY());
-				fw1.write(b+","+bb+"\r\n");
-				
+				String b =  String.valueOf(center.get(i).getX());
+				String bb =  String.valueOf(center.get(i).getY());
+				String bbb =  String.valueOf(center.get(i).getZ())
+						;
+				//String b = String.valueOf(CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getX());
+				//String bb =  String.valueOf(CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getY());
+				//fw1.write(b+" "+bb+" "+bbb+"\r\n");
+				fw1.write(center.get(i).getX()+" "+center.get(i).getY()+" "+center.get(i).getZ() +"\r\n");
 				
 			}
 			fw1.close();
@@ -370,6 +1145,8 @@ public class Deploy_BS {
 		ls.add(c);
 	}
 
+	
+	
 	public static double dist(double x1, double y1, double x2, double y2) {
 		
 		//Point2D.Double.distance(x1, y1, x2, y2);
@@ -426,7 +1203,10 @@ public class Deploy_BS {
 		double t, a = 0, b = 0, c = 0;
 
 		t = angle(x1, y1, x2, y2, x3, y3);
-
+        //double tt= t%180;
+        
+		//System.out.println("t: " +t);
+		
 		if (t <= 90) // 銳角
 		{
 			a = a1 * (Math.sqrt(a2 * a2 + b2 * b2)) + a2
@@ -464,27 +1244,35 @@ public class Deploy_BS {
 		ls.add(a);
 		ls.add(b);
 		ls.add(c);
+		//System.out.println("abc"+a1+" , "+b1+" , "+c1);
 	}
 
-	static void center_on_angular(double a, double b, double c, double h,
+	static Point2D.Double center_on_angular(double a, double b, double c, double h,
 			double k, double r, double x1, double y1, double x2, double y2,
 			double x3, double y3) // 求分角線上之圓心
 									// 由上下點與焦點產生角選較大的, double &X, double &Y
 	{
+		Point2D.Double p =new Point2D.Double();
+		System.out.println("center_on_angular");
 		// int tj;
 		double A, B, C, t, t1, xx, yy, x, y, cx, cy, kk, bb;
 
 		t = Math.sqrt(3.0) * r; // 根號3r
+		
 
 		cx = h;
 		cy = k;
 		kk = -1 * a / b;
 		bb = -1 * c / b;
 
+		//System.out.println("a : "+ a);
+		//System.out.println("b : "+ b);
+		
 		A = (1 + kk * kk); // (1 + k*k);
 		B = (2 * cx - 2 * kk * (bb - cy)); // (2*cx - 2*k*(b - cy))
 		C = cx * cx + (bb - cy) * (bb - cy) - t * t; // cx*cx + (b - cy)*(b- cy)
-														// -r*r
+		
+		// -r*r
 
 		t1 = Math.sqrt(B * B - 4 * A * C);
 
@@ -504,6 +1292,9 @@ public class Deploy_BS {
 			ls.clear();
 			ls.add(xx);
 			ls.add(yy);
+			p.x = xx;
+			p.y = yy;
+			return p;
 		}
 
 		else {
@@ -511,12 +1302,18 @@ public class Deploy_BS {
 			ls.clear();
 			ls.add(x);
 			ls.add(y);
+			
+			p.x = xx;
+			p.y = yy;
+			return p;
 
 			// X=i/point;
 			// Y=j/point;
 		}
 	}
 
+	
+	
 	static void rotation_1(double x, double y, double h, double k) // double
 																	// &x1,
 																	// double
@@ -878,4 +1675,94 @@ public class Deploy_BS {
 	}
 
 	
+public Point2D.Double getIntersectionPoint(Line2D.Double line1, Line2D.Double line2) {
+		    if (! line1.intersectsLine(line2) )
+		    	{
+		    	System.out.println(" line1.intersectsLine(line2) :" + line1.intersectsLine(line2));
+		    	return null;
+		    	}
+		      
+		    double px = line1.getX1(),
+		            py = line1.getY1(),
+		            rx = line1.getX2()-px,
+		            ry = line1.getY2()-py;
+		      double qx = line2.getX1(),
+		            qy = line2.getY1(),
+		            sx = line2.getX2()-qx,
+		            sy = line2.getY2()-qy;
+
+		      double det = sx*ry - sy*rx;
+		      
+		      if (det == 0) {
+		    	  System.out.println("det :+++++++++++++++++++ "+det);
+		        return null;
+		      }
+		      
+		      else {
+		        double z = (sx*(qy-py)+sy*(px-qx))/det;
+		        System.out.println("z : "+z);
+		        
+		        if (z==0 ||  z==1) 
+		        return null;  // intersection at end point!
+		        
+		        
+		        Point2D.Double p =  new Point2D.Double(
+		          (px+z*rx), (py+z*ry));
+		        
+		        p.x =  (px+z*rx);
+		        p.y = (py+z*ry);
+		        
+		        return p;
+		      }
+		 }
+
+
+
+
+    public static List<Point2D.Double> getCircleLineIntersectionPoint(Point2D.Double pointA,
+    		Point2D.Double pointB, Point2D.Double center, double radius) {
+        double baX = pointB.x - pointA.x;
+        double baY = pointB.y - pointA.y;
+        double caX = center.x - pointA.x;
+        double caY = center.y - pointA.y;
+
+        double a = baX * baX + baY * baY;
+        double bBy2 = baX * caX + baY * caY;
+        double c = caX * caX + caY * caY - radius * radius;
+
+        double pBy2 = bBy2 / a;
+        double q = c / a;
+
+        double disc = pBy2 * pBy2 - q;
+        if (disc < 0) {
+            return Collections.emptyList();
+        }
+        // if disc == 0 ... dealt with later
+        double tmpSqrt = Math.sqrt(disc);
+        double abScalingFactor1 = -pBy2 + tmpSqrt;
+        double abScalingFactor2 = -pBy2 - tmpSqrt;
+
+        Point2D.Double p1 = new Point2D.Double(pointA.x - baX * abScalingFactor1, pointA.y
+                - baY * abScalingFactor1);
+        if (disc == 0) { // abScalingFactor1 == abScalingFactor2
+            return Collections.singletonList(p1);
+        }
+        Point2D.Double p2 = new Point2D.Double(pointA.x - baX * abScalingFactor2, pointA.y
+                - baY * abScalingFactor2);
+        
+        System.out.println("getCircleLineIntersectionPoint : ");
+        System.out.println(pointA.getX()+" , "+ pointA.getY());
+        System.out.println(pointB.getX()+" , "+ pointB.getY());
+        System.out.println(p1.getX()+", "+p1.getY());
+        System.out.println(p2.getX()+", "+p2.getY());
+        System.out.println();
+        
+        return Arrays.asList(p1, p2);
+    }
+
+ 
+
+
+
+
 }

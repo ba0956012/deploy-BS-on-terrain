@@ -81,153 +81,196 @@ import java.awt.Shape;
 	        return contains((double) x, (double) y);
 	    }
 	  
+	    /*
 	    public boolean contains(double x, double y) {
-	        if (npoints <= 2) {
-	        	System.out.println("npoints <= 2");
-	            return false;
+	    	if (npoints <= 2) {
+	    	    return false;
+	    	}
+	    	
+	    	double tolerance = 1.0; //若點在邊上判斷誤差容許值
+	    	
+	    	Line2D.Double l = new Line2D.Double();
+	        for(int j=0; j<2; j++){
+	        	l.setLine(this.xpoints[j],this.ypoints[j], this.xpoints[j+1], this.ypoints[j+1]);
+	        	if(l.ptLineDist(x,y) <= tolerance){
+	        		return true;
+	        	}
 	        }
-	        int hits = 0;
-	  
-	        double lastx = xpoints[npoints - 1];
-	        double lasty = ypoints[npoints - 1];
-	        double curx, cury;
-	  
-	        // Walk the edges of the polygon
-	        for (int i = 0; i < npoints; lastx = curx, lasty = cury, i++) {
-	            curx = xpoints[i];
-	            cury = ypoints[i];
-	  
-	            if (cury == lasty) {
-	                continue;
-	            }
-	  
-	            double leftx;
-	            if (curx < lastx) {
-	                if (x > lastx) {
-	                    continue;
-	                }
-	                leftx = curx;
-	            } else {
-	                if (x > curx) {
-	                    continue;
-	                }
-	                leftx = lastx;
-	            }
-	  
-	            double test1, test2;
-	            if (cury < lasty) {
-	                if (y < cury || y > lasty) {
-	                    continue;
-	                }
-	                if (x <= leftx) {
-	                    hits = 1;
-	                    continue;
-	                }
-	                test1 = x - curx;
-	                test2 = y - cury;
-	            } 
-	            else {
-	                if (y < lasty || y > cury) {
-	                    continue;
-	                }
-	                if (x <= leftx) {
-	                    hits = 1;
-	                    continue;
-	                }
-	                test1 = x - lastx;
-	                test2 = y - lasty;
-	            }
-	  
-	            if (test1 <= (test2 / (lasty - cury) * (lastx - curx))) {
-	                hits = 1;
-	            }
-	        }
-	  
-	        return ((hits & 1) != 0);
+	        l.setLine(this.xpoints[2],this.ypoints[2], this.xpoints[0], this.ypoints[0]);
+	        if(l.ptLineDist(x,y) <= tolerance){
+	        	return true;
+        	}
+	    	
+	    	int hits = 0;
+
+	    	double lastx = xpoints[npoints - 1];
+	    	double lasty = ypoints[npoints - 1];
+	    	double curx, cury;
+
+	    	// Walk the edges of the polygon
+	    	for (int i = 0; i < npoints; lastx = curx, lasty = cury, i++) {
+	    	    curx = xpoints[i];
+	    	    cury = ypoints[i];
+
+	    	    if (cury == lasty) {
+	    		continue;
+	    	    }
+
+	    	    double leftx;
+	    	    if (curx < lastx) {
+	    		if (x >= lastx) {
+	    		    continue;
+	    		}
+	    		leftx = curx;
+	    	    } else {
+	    		if (x >= curx) {
+	    		    continue;
+	    		}
+	    		leftx = lastx;
+	    	    }
+
+	    	    double test1, test2;
+	    	    if (cury < lasty) {
+	    		if (y < cury || y >= lasty) {
+	    		    continue;
+	    		}
+	    		if (x < leftx) {
+	    		    hits++;
+	    		    continue;
+	    		}
+	    		test1 = x - curx;
+	    		test2 = y - cury;
+	    	    } else {
+	    		if (y < lasty || y >= cury) {
+	    		    continue;
+	    		}
+	    		if (x < leftx) {
+	    		    hits++;
+	    		    continue;
+	    		}
+	    		test1 = x - lastx;
+	    		test2 = y - lasty;
+	    	    }
+
+	    	    if (test1 < (test2 / (lasty - cury) * (lastx - curx))) {
+	    		hits++;
+	    	    }
+	    	}
+
+	    	
+	    	
+	    	return ((hits & 1) != 0);
 	    }
-	  
+	  */
+	    
+	    
 	    public boolean contains(Point2D p) {
 	        return contains(p.getX(), p.getY());
 	    }	
 	    
 	    
-	    public boolean contains1(double x, double y) {
-	        if (npoints <= 2) {
-	        	System.out.println("npoints <= 2");
-	            return false;
+	   
+	    
+	    
+	    public boolean contains(double x, double y) { //Point2D test, 
+	        int i;
+	        int j;
+	       double tmp_xpoints[] = new double[3];
+	  	  
+		   double tmp_ypoints[] = new double[3];
+	        
+		   
+		   double tx = 0 , ty=0;
+		   
+		   for(int k=0 ; k<xpoints.length;k++){
+			   
+			   if(xpoints[k]<tx)
+			   {
+				   tx= xpoints[k];
+			   }
+			   if(x<tx)
+				   tx = x;
+			   
+		   }
+		   
+		   for(int k=0 ; k<ypoints.length;k++){
+			   
+			   if(ypoints[k]<ty)
+			   {
+				   ty= ypoints[k];
+			   }
+			   if(y<ty)
+				   ty = y;
+			   
+		   }
+	        
+		   
+		   if(tx<0){
+	        	for(int k=0 ; k<xpoints.length;k++)
+	        		tmp_xpoints[k] = xpoints[k]-tx+1;
+	        	x = x-tx+1;
 	        }
-	        int hits = 0;
-	  
-	        double lastx = xpoints[npoints - 1];
-	        double lasty = ypoints[npoints - 1];
-	        double curx, cury;
-	  
-	        // Walk the edges of the polygon
-	        for (int i = 0; i < npoints; lastx = curx, lasty = cury, i++) {
-	            curx = xpoints[i];
-	            cury = ypoints[i];
-	  
-	            if (cury == lasty) {
-	                continue;
-	            }
-	  
-	            double leftx;
-	            if (curx < lastx) {
-	                if (x > lastx) {
-	                    continue;
-	                }
-	                leftx = curx;
-	            } else {
-	                if (x > curx) {
-	                    continue;
-	                }
-	                leftx = lastx;
-	            }
-	  
-	            double test1, test2;
-	            if (cury < lasty) {
-	                if (y < cury || y > lasty) {
-	                    continue;
-	                }
-	                if (x <= leftx) {
-	                    hits = 1;
-	                    continue;
-	                }
-	                test1 = x - curx;
-	                test2 = y - cury;
-	            } 
-	            else {
-	                if (y < lasty || y > cury) {
-	                    continue;
-	                }
-	                if (x <= leftx) {
-	                    hits ++;
-	                    continue;
-	                }
-	                test1 = x - lastx;
-	                test2 = y - lasty;
-	            }
-	  
-	            if (test1 <= (test2 / (lasty - cury) * (lastx - curx))) {
-	                hits ++;
-	            }
+	        
+	        else{
+	        	for(int k=0 ; k<xpoints.length;k++)
+	        		tmp_xpoints[k] = xpoints[k];
 	        }
-	        /*
-	        Line2D.Double l = new Line2D.Double();
-	        for(int j=0; j<2; j++){
-	        	l.setLine(this.xpoints[j],this.ypoints[j], this.xpoints[j+1], this.ypoints[j+1]);
-	        	if(l.contains(x,y) == true){
-	        		hits = 1;
+	        
+	        
+	        if(ty<0){
+	        	for(int k=0 ; k<ypoints.length;k++)
+	        		tmp_ypoints[k] = ypoints[k]-ty+1;
+	        	y = y-ty+1;
+	        }
+	      
+	      
+	        
+	        else{
+	        	for(int k=0 ; k<ypoints.length;k++)
+	        		tmp_ypoints[k] = ypoints[k];
+	        }
+	        
+	        
+	        
+	        double tolerance = 1.0; //若點在邊上判斷誤差容許值
+	    	
+	     	Line2D.Double l = new Line2D.Double();
+	        for(int k=0; k<2; k++){
+	        	l.setLine(tmp_xpoints[k],tmp_ypoints[k], tmp_xpoints[k+1], tmp_ypoints[k+1]);
+	        	if(l.ptLineDist(x,y) <= tolerance&&
+	        			((x<tmp_xpoints[k] && x>tmp_xpoints[k+1])
+	        			  ||(x<tmp_xpoints[k+1] && x>tmp_xpoints[k])) 
+	        	  ){
+	        		return true;
 	        	}
 	        }
-	        l.setLine(this.xpoints[2],this.ypoints[2], this.xpoints[0], this.ypoints[0]);
-	        if(l.contains(x,y) == true){
-        		hits = 1;
+	        l.setLine(tmp_xpoints[2],tmp_ypoints[2], tmp_xpoints[0], tmp_ypoints[0]);
+	        if(l.ptLineDist(x,y) < tolerance&&((x<tmp_xpoints[0] && x>tmp_xpoints[2])||(x<tmp_xpoints[2] && x>tmp_xpoints[0])) ){
+	        	return true;
         	}
-	        */
-	        return ((hits & 1) != 0);
-	    }
+	        
+	        
+	        
+	        
+	        
+	        if (npoints <= 2) {
+	    	    return false;
+	    	}
+	    	
+	    	
+	        
+	        boolean result = false;
+	        for (i = 0, j = xpoints.length - 1; i < xpoints.length; j = i++) {
+	          if ((tmp_ypoints[i] > y) != (tmp_ypoints[j] > y) &&
+	              (x < (tmp_xpoints[j] - tmp_xpoints[i]) * (y - tmp_ypoints[i]) / (tmp_ypoints[j]-tmp_ypoints[i]) + tmp_xpoints[i])) {
+	            result = !result;
+	           }
+	        }
+	        return result;
+	      }
+	
 	    
 	    
+	
 }
 

@@ -39,7 +39,7 @@ public class Read_line {
 		 
         for(int i=0;i<l.size();i++)	 
         {	
-        	System.out.println(l.get(i).getX1()+" "+l.get(i).getY1()+" "+l.get(i).getX2()+" "+l.get(i).getY2());
+        //	System.out.println(l.get(i).getX1()+" "+l.get(i).getY1()+" "+l.get(i).getX2()+" "+l.get(i).getY2());
         }
 	 
 	  return l;

@@ -1,6 +1,9 @@
 import java.awt.geom.Line2D;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.jlab.geom.prim.Point3D;
 
 public class Deploy_BS_on_Terrain {
 
@@ -34,10 +37,56 @@ public class Deploy_BS_on_Terrain {
 		    //System.out.print(i);
 		    Read_TIN.TIN_List TL;
 		    
+		    ArrayList<TIN_Point> TL1 = new ArrayList<TIN_Point>();
 		    	    
 		    Read_TIN RT = new Read_TIN();
 		    //TL = RT.read("C:/Users/sclab/Desktop/terrain/geotest/hedgehog_mesh.txt");
 		    TL = RT.read(TIN_File);
+		    
+		    for(int i=0; i<TL.p_List.size();i++) //將TIN轉為公尺完單位之座標
+		    {
+		  //   System.out.println("0TP "+i+" : "+TL.p_List.get(i).getX()+","+TL.p_List.get(i).getY()+","+TL.p_List.get(i).getZ());
+		  //  System.out.println("1TP "+i+" : "+(xllcorner +TL.p_List.get(i).getX()*cellsize)+","+(yllcorner +TL.p_List.get(i).getY()*cellsize)+","+TL.p_List.get(i).getZ());
+		    	
+		    Point3D p = new Point3D(TL.p_List.get(i).getX(),TL.p_List.get(i).getY(),TL.p_List.get(i).getZ());
+		    p = CT.ascGrid_to_meter_coor(yllcorner, xllcorner, p);
+		    /*
+		    p = 
+		     TIN_Point TP = new TIN_Point(CT.to_meter_coor(
+		    			  					yllcorner, xllcorner, yllcorner +(TL.p_List.get(i).getY()*cellsize)
+		    			  					, xllcorner+(TL.p_List.get(i).getX()*cellsize)).getY(),
+		    			  				  CT.to_meter_coor(
+		    			  				  	yllcorner, xllcorner, yllcorner +(TL.p_List.get(i).getY()*cellsize)
+			  								, xllcorner+(TL.p_List.get(i).getX()*cellsize)).getX(),
+		    							  TL.p_List.get(i).getZ()); 
+		    	
+		    	TP.id = i;
+		    */
+		    TIN_Point TP = new TIN_Point(p.x(),p.y(),p.z());
+		    TP.id = i;
+		    // System.out.println("TP "+i+" : "+TP.getX()+","+TP.getY()+","+TP.getZ());	
+		    TL1.add(TP);
+		    }
+		    System.out.println("TL.p_List.size"+TL.p_List.size());
+		    TL.p_List = TL1; 
+		    System.out.println("TL1.size"+TL1.size());
+		    System.out.println("TL1.p_List.size"+TL.p_List.size());
+		    
+		    
+		    FileWriter FW = new FileWriter("DtestTIN.tin");
+		    FW.write(TL.p_List.size()+"	"+TL.t_List.size()+"\r\n");
+		    for(int i=0; i<TL.p_List.size();i++)
+		    {
+		    	FW.write(TL.p_List.get(i).getX()+"	"+TL.p_List.get(i).getY()+"	"+TL.p_List.get(i).getZ()+"\r\n");
+		    }
+		    
+		    for(int i=0; i<TL.t_List.size();i++)
+		    {
+		  //  	if(i == 0)
+		  // 	System.out.println(TL.t_List.get(i).p_id[0]+"	"+TL.t_List.get(i).p_id[1]+"	"+TL.t_List.get(i).p_id[2]+"\r\n");
+		    	FW.write(TL.t_List.get(i).p_id[0]+"	"+TL.t_List.get(i).p_id[1]+"	"+TL.t_List.get(i).p_id[2]+"\r\n");
+		    }
+		    FW.close();
 		    
 		    //TL = RT.read("JAVA_N23.txt");"path.txt"
 		 /*   
@@ -57,6 +106,32 @@ public class Deploy_BS_on_Terrain {
 		    ArrayList<Line2D.Double> l = new ArrayList<Line2D.Double>();
 		    l = Read_line.read(Path_File, CT);
 		    
+		    System.out.println("l.size(): "+l.size());
+		    for(int i=0; i<l.size();i++){
+		    	
+		    	Line2D.Double ll= new Line2D.Double();
+		    	ll.setLine(CT.ascGrid_to_meter_coor(yllcorner, xllcorner, l.get(i).getP1()), 
+		    				CT.ascGrid_to_meter_coor(yllcorner, xllcorner, l.get(i).getP2())
+		    						);
+		    	
+		    	l.set(i, ll);
+		    	
+		    	/*
+		    	System.out.println("path :");
+		    	System.out.println( l.get(i).x1+","+ l.get(i).y1);
+		    	
+		    	System.out.println(
+		    	CT.toLatitude_and_Longitude( l.get(i).x1,l.get(i).y1).getX()+","+CT.toLatitude_and_Longitude( l.get(i).x1,  l.get(i).y1).getY());
+		    	
+		    	System.out.println(CT.to_grid(
+		    	CT.toLatitude_and_Longitude( l.get(i).x1,l.get(i).y1).getX(),CT.toLatitude_and_Longitude( l.get(i).x1,  l.get(i).y1).getY()
+		    	));
+		    	*/
+		    	//System.out.println( l.get(i).x2+","+ l.get(i).y2);
+		    	//System.out.println(" ");
+		    }
+		    System.out.println("ll.size(): "+l.size());
+		  
 		   // l = Read_line.read("path.txt");
 		    //System.out.println(l.get(0).getX1());
 		    Geodesic g = new Geodesic();
@@ -88,8 +163,20 @@ public class Deploy_BS_on_Terrain {
 		    {	
 		   //	GL.GL.get(tt).show();
 		    }
+		    FileWriter fw = new FileWriter("GeoPath.txt", true);
 		    
-		   // System.out.println(GL.GL.size());
+		   
+		    for(int GeoPath=0; GeoPath<GL.GL.size();GeoPath++)
+    			fw.write(	GL.GL.get(GeoPath).origin().x()+" "+
+    						GL.GL.get(GeoPath).origin().y()+" "+
+    						(GL.GL.get(GeoPath).origin().z())+" "+
+    						GL.GL.get(GeoPath).end().x()+" "+
+    						GL.GL.get(GeoPath).end().y()+" "+
+    						(GL.GL.get(GeoPath).end().z())+" "+"\r\n"
+    						
+    					);	
+		    
+		     System.out.println("GL :"+ GL.GL.size());
 		    
 		    for(int zz=0;zz<GL.GL.size();zz++)
 		    {
@@ -109,14 +196,30 @@ public class Deploy_BS_on_Terrain {
 		    
 		    covered_package CP = new covered_package();
 		    ArrayList<covered_package> CP_L = new ArrayList();
+		    
 		    CP_L = CP.into(TL, GL);
 		    
+		    System.out.println("CP_L : " + CP_L .size());
 		    
+		    FileWriter fw1 = new FileWriter("GeoPath1.txt", true);
 		    
+			   
+		    
+    						
+		   
 		    for(int i = 0;i<CP_L.size();i++){
 		    	
 		    	if(CP_L.get(i).Line.size()>0){
-		   		Deploy_BS DB = new  Deploy_BS();
+		    		
+		    		for(int GeoPath=0; GeoPath<CP_L.get(i).Line.size();GeoPath++)
+		    			fw1.write(	CP_L.get(i).Line.get(GeoPath).origin().x()+" "+
+		    					CP_L.get(i).Line.get(GeoPath).origin().y()+" "+
+		    					CP_L.get(i).Line.get(GeoPath).origin().z()+" "+
+		    					CP_L.get(i).Line.get(GeoPath).end().x()+" "+
+		    					CP_L.get(i).Line.get(GeoPath).end().y()+" "+
+		    					CP_L.get(i).Line.get(GeoPath).end().z()+" "+"\r\n");
+		   		
+		    		Deploy_BS DB = new  Deploy_BS();
 		   		//	System.out.println("i:"+i);
 		    	//	System.out.println("CP_L.get(i).Line.size()"+CP_L.get(i).Line.size());
 		    		
@@ -129,11 +232,11 @@ public class Deploy_BS_on_Terrain {
 		    	}
 		    	
 		    }
-		   
+		    fw1.close();
+		    fw.close();
 		    
 		    
-		    
-		    
+   
 		    
 		    //covered_package cp = new covered_package();
 		    //cp.create_package(TL, GL);

@@ -72,7 +72,7 @@ public class mesh_and_plan {
 		MaP.plan_p3 = 
 		project1(p1.distance(p3), p1, aa);
 		
-		
+		//System.out.println("MaP : ");
 		//System.out.println("**distance between p1 p2 :" + MaP.p1.distance(p2)+" "+ MaP.plan_p1.distance(MaP.plan_p2));
 		//System.out.println("**distance between p3 p1 :" + MaP.p3.distance(p1)+" "+ MaP.plan_p3.distance(MaP.plan_p1));
 		//System.out.println("**distance between p3 p2 :" + MaP.p3.distance(p2)+" "+ MaP.plan_p3.distance(MaP.plan_p2));

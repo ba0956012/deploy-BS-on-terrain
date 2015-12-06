@@ -43,7 +43,7 @@ public class covered_package {
 				if(Triangel2D.contains(l.GL.get(i).end().x(),l.GL.get(i).end().y())
 				&&Triangel2D.contains(l.GL.get(i).origin().x(),l.GL.get(i).origin().y())){
 					p.Line.add(l.GL.get(i));
-					l.GL.get(i).show();
+					//l.GL.get(i).show();
 				}
 				//					
 				//System.out.println();	

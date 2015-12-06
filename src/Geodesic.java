@@ -84,8 +84,10 @@ public void cal_Geodesic(ArrayList<Triangel> Input_Triangel_List, ArrayList<TIN_
 		
 		double z = Find_Zcoordinate.getZ(Polygon_List.get(del_t_id1).get_xpoint(0), Polygon_List.get(del_t_id1).get_ypoint(0), p_List);
 		TIN_Point p1 = new TIN_Point(Polygon_List.get(del_t_id1).get_xpoint(0), Polygon_List.get(del_t_id1).get_ypoint(0),z);
+		
 		z = Find_Zcoordinate.getZ(Polygon_List.get(del_t_id1).get_xpoint(1), Polygon_List.get(del_t_id1).get_ypoint(1), p_List);
 		TIN_Point p2 = new TIN_Point(Polygon_List.get(del_t_id1).get_xpoint(1), Polygon_List.get(del_t_id1).get_ypoint(1),z);
+		
 		z = Find_Zcoordinate.getZ(Polygon_List.get(del_t_id1).get_xpoint(2), Polygon_List.get(del_t_id1).get_ypoint(2), p_List);
 		TIN_Point p3 = new TIN_Point(Polygon_List.get(del_t_id1).get_xpoint(2), Polygon_List.get(del_t_id1).get_ypoint(2),z);
 			

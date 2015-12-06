@@ -28,6 +28,8 @@ public class Find_Zcoordinate {
 			    return new Point2D.Double (xi,yi);
 			  }
 	
+	
+	/*
 	static double calcY(TIN_Point p1, TIN_Point p2, TIN_Point p3, double x, double y) {
 		
 
@@ -54,4 +56,47 @@ public class Find_Zcoordinate {
 								   		
 		return z;
 	}
+	*/
+	
+	
+	static double calcY(TIN_Point p1, TIN_Point p2, TIN_Point p3, double x, double y) {
+	double z=0;
+	//ªk¦V¶q
+	   double vp1 = ( (p2.getY()-p1.getY())*(p3.getZ()-p1.getZ())-(p2.getZ()-p1.getZ())*(p3.getY()-p1.getY()) );  	  
+	   double vp2 = ( (p2.getZ()-p1.getZ())*(p3.getX()-p1.getX())-(p2.getX()-p1.getX())*(p3.getZ()-p1.getZ()) ); 
+	   double vp3 = ( (p2.getX()-p1.getX())*(p3.getY()-p1.getY())-(p2.getY()-p1.getY())*(p3.getX()-p1.getX()) ); 
+	   double n1 = p1.getX();
+	   double n2 = p1.getY();
+	   double n3 = p1.getZ();
+	   double m1 = x;
+	   double m2 = y;
+	   double m3 = 10;
+	   double v1 = 0;
+	   double v2 = 0;
+	   double v3 = 10;
+	   double vpt = v1 * vp1 + v2 * vp2 + v3 * vp3; 
+	   if (vpt == 0)  
+	   {  
+		   System.out.println("vpt == 0");
+		   System.exit(0);;
+	   return 0;  
+	   } 
+	//
+	   else{
+		   
+		   double t = ((n1 - m1) * vp1 + (n2 - m2) * vp2 + (n3 - m3) * vp3) / vpt; 
+		   if(m3 + v3 * t<0){
+			   System.out.println("p1: "+ p1.getX()+","+p1.getY()+","+p1.getZ());
+			   System.out.println("p2: "+ p2.getX()+","+p2.getY()+","+p2.getZ());
+			   System.out.println("p3: "+ p3.getX()+","+p3.getY()+","+p3.getZ());
+			   System.out.println("XY: "+ x+","+y);
+			   System.out.println("t: "+ t);
+			   System.out.println(m3 + v3 * t);
+		   
+		   }
+		   return m3 + v3 * t;   
+	   }
+	    
+	}
+	
 }

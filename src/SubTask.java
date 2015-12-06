@@ -9,7 +9,7 @@ import org.jlab.geom.prim.Line3D;
 import org.jlab.geom.prim.Point3D;
 
 public  class SubTask implements Runnable {
-	public static ArrayList<Point3D> geodesc = new  ArrayList<Point3D>();
+	public static ArrayList<Line3D> geodesc = new  ArrayList<Line3D>();
    	  
 	public SubTask(InputStream istream)
    	  {
@@ -22,6 +22,7 @@ public  class SubTask implements Runnable {
    	  public void run()
    	  {
    		 int n=0;
+   		 double tmpx=0, tmpy=0, tmpz=0;
    	    try {
    	      String input = iReader.readLine();
    	   //FileWriter fw = new FileWriter("geodesic.txt", true);
@@ -34,10 +35,25 @@ public  class SubTask implements Runnable {
    	    		String tempArray[] = input.split("\\s");
    	    		  	    		
    	    		//fw.write(tempArray[0]+" "+tempArray[1]+" "+tempArray[2]+"\r\n");
-   	    		Point3D p = new Point3D();
-   	    		p.set(Double.parseDouble(tempArray[0]), Double.parseDouble(tempArray[1]), Double.parseDouble(tempArray[2]));
+   	    	 	if(n==9){
+   	    	 	tmpx = 	Double.parseDouble(tempArray[0]);
+   	    	 	tmpy = 	Double.parseDouble(tempArray[1]);
+   	    	 	tmpz = 	Double.parseDouble(tempArray[2]);
+   	    	 	}
+   	    	 	else {
+   	    	 		Line3D l = new Line3D();
+   	    	 		l.origin().set(tmpx, tmpy,tmpz);
+   	    	 		l.end().set(Double.parseDouble(tempArray[0]), Double.parseDouble(tempArray[1]), Double.parseDouble(tempArray[2]));
+   	    	 		tmpx = 	Double.parseDouble(tempArray[0]);
+   	    	 		tmpy = 	Double.parseDouble(tempArray[1]);
+   	    	 		tmpz = 	Double.parseDouble(tempArray[2]);
+   	    	 		geodesc.add(l);
+   	    	 	}
+   	    		
+   	    	 	
    	    		//p.show(); 
-   	    		geodesc.add(p);
+   	    		
+   	    	
    	    	}
    	    		input = iReader.readLine();
    	        
