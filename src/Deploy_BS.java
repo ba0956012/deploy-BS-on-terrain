@@ -166,13 +166,13 @@ public class Deploy_BS {
 				h = linels.get(j);
 				k = linels.get(j + 1);
 				
-				x1 = h + 1;
+				x1 = h + 0.1;
 				y1 = k + 2;
 				
 				x2 = h;
 				y2 = k;
 				
-				x3 = h + 1;
+				x3 = h + 0.1;
 				y3 = k - 1;
 				
 				line(h, k, x1, y1);
@@ -203,6 +203,8 @@ public class Deploy_BS {
 				
 				centerls.add(h);
 				centerls.add(k);
+				
+				
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 				Point2D.Double fist_center= new Point2D.Double();
 				fist_center.x = h;
@@ -216,6 +218,10 @@ public class Deploy_BS {
 				h1 = ls.get(0);
 				k1 = ls.get(1);
 				
+				
+				rotation_0(h1, k1, h, k);
+				h1 = ls.get(0);
+				k1 = ls.get(1);
 				
 				
 				
@@ -1097,6 +1103,54 @@ public class Deploy_BS {
 	
 	
 	//////////////////////////////////////////////////////////	
+			
+		
+			
+			try {
+		
+			//File file = new File("center.csv");
+			FileWriter fw1 = new FileWriter("center_ LngLat.txt",true);
+			
+			for (i = 0; i < center.size(); i++) {
+				
+				
+				//CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getX();
+				
+				
+				String b =  String.valueOf(CT.convert(center.get(i).getX(),center.get(i).getY()).getX());
+				String bb =  String.valueOf(CT.convert(center.get(i).getX(),center.get(i).getY()).getY());
+				String bbb =  String.valueOf(center.get(i).getZ())
+						;
+				//String b = String.valueOf(CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getX());
+				//String bb =  String.valueOf(CT.toLatitude_and_Longitude(centerls.get(i), centerls.get(i+1)).getY());
+				//fw1.write(b+" "+bb+" "+bbb+"\r\n");
+				fw1.write(b+" "+bb+" "+bbb +"\r\n");
+				
+			}
+			fw1.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		
+		} finally {
+
+			
+			if (fw != null) {
+
+				try {
+
+					fw.close();
+
+				} catch (IOException e) {
+
+					e.printStackTrace();
+
+				}
+			}
+		}
+			
+			
+	///////////////////////////////////////////////////////////		
 	}
 
 	
@@ -1312,6 +1366,32 @@ public class Deploy_BS {
 		}
 	}
 
+	
+	static void rotation_0(double x, double y, double h, double k) // double
+	// &x1,
+	// double
+	// &y1
+{
+// int tj;
+// int i, j;
+double x1, y1;
+x = x-h ;
+y = y-k ;
+
+x1 = x * Math.cos(270 * (3.14159265 / 180.0)) + y
+* Math.sin(270 * (3.14159265 / 180.0)) + h;
+// i=x1*point;
+// x1=i/point;
+
+y1 = -x * Math.sin(270* (3.14159265 / 180.0)) + y
+* Math.cos(270 * (3.14159265 / 180.0)) + k;
+// j=y1*point;
+// y1=j/point;
+
+ls.clear();
+ls.add(x1);
+ls.add(y1);
+}
 	
 	
 	static void rotation_1(double x, double y, double h, double k) // double
@@ -1702,9 +1782,24 @@ public Point2D.Double getIntersectionPoint(Line2D.Double line1, Line2D.Double li
 		        double z = (sx*(qy-py)+sy*(px-qx))/det;
 		        System.out.println("z : "+z);
 		        
-		        if (z==0 ||  z==1) 
-		        return null;  // intersection at end point!
+		        if (z==0 ||  z==1){ 
+		        System.out.println(px+" , "+py);
+		        System.out.println(rx+" , "+ry);
+		        System.out.println(qx+" , "+qy);
+		        System.out.println(sx+" , "+sy);
 		        
+		        if(rx ==0 && ry==0)
+		        {
+		        	Point2D.Double p =  new Point2D.Double((px), (py));
+		        	return p;
+		        }
+		        else
+		        {
+		        	Point2D.Double p =  new Point2D.Double((qx), (qy));
+		        	return p;
+		        	  // intersection at end point!
+		        }
+		        }
 		        
 		        Point2D.Double p =  new Point2D.Double(
 		          (px+z*rx), (py+z*ry));

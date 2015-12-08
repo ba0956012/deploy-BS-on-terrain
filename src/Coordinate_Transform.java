@@ -194,4 +194,30 @@ public double distVincenty(double lat1 ,double long1 ,double lat2 ,double long2)
     return b * A * (sigma - deltaSigma);
 }
 
+
+
+
+
+	/**
+		@brief TM coordinate to lat lon formula
+
+		reference to http://www.uwgb.edu/dutchs/UsefulData/UTMFormulas.htm
+
+		@param TMParameter object
+		@param x
+		@param y
+	**/
+	 public Point2D.Double convert( double x, double y) {
+			
+	    		Double E = 1/110751.0561277;  // E
+	    		Double N = 1/110765.5158145258;//N
+	    		Point2D.Double p = new Point2D.Double();
+	    		p.x = this.xllcorner+x*E;
+	    		p.y = this.yllcorner+y*N;
+
+		
+		return p;
+	}
+
+
 }
