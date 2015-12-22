@@ -232,7 +232,7 @@ import java.awt.Shape;
 	        
 	        
 	        
-	        double tolerance = 1.0; //若點在邊上判斷誤差容許值
+	        double tolerance = 10.0; //若點在邊上判斷誤差容許值
 	    	
 	     	Line2D.Double l = new Line2D.Double();
 	        for(int k=0; k<2; k++){

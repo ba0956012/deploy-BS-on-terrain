@@ -270,8 +270,8 @@ public static Point3D Calcute(mesh_and_plan map , Point2D.Double P){
 							, a*f1_y + b*f2_y+map.p1.getY()
 							, a*f1_z + b*f2_z+map.p1.getZ());
 	
-	System.out.println("p: ");
-	System.out.println(p.getX()+","+p.getY()+","+p.getZ());
+	//System.out.println("p: ");
+	//System.out.println(p.getX()+","+p.getY()+","+p.getZ());
 	
 	return p;
 }

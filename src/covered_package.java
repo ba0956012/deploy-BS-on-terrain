@@ -18,7 +18,7 @@ public class covered_package {
 	public ArrayList<covered_package> into(Read_TIN.TIN_List TL,Geodesic_List l){
 		
 		ArrayList<covered_package> packegts_List = new ArrayList<covered_package>();  
-		int debug = 0;
+		//int debug = 0;
 		int j=0;
 		
 		for(j=0;j<TL.t_List.size();j++){
@@ -62,7 +62,7 @@ public class covered_package {
 		
 		
 		for(int j=0; j<TL.t_List.size();j++){
-			covered_package p = new covered_package();
+			//covered_package p = new covered_package();
 			Polygon2D Triangel2D = new  Polygon2D();
 			Triangel2D = Triangle_to_Polygon2D.single_Triangle_to_Polygon2D(TL.t_List.get(j) , TL.p_List);
 			//System.out.println(Triangel2D.get_xpoint(0)+" "+Triangel2D.get_ypoint(0));

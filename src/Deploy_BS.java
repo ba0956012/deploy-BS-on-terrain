@@ -1,7 +1,9 @@
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,14 +18,19 @@ import javafx.geometry.Point3D;
 
 public class Deploy_BS {
 	
+	 ArrayList<Double> new_centerls = new ArrayList<Double>();
+	
 	static ArrayList<Double> ls = new ArrayList<Double>();
 	static ArrayList<Double> coverls = new ArrayList<Double>();
+	
+	static ArrayList<Double> covered_intersection = new ArrayList<Double>();
+	
 	static int point = 10000;// 控制小數點
 	
 	public void Deploy(covered_package PK, Read_TIN.TIN_List TL,  double rr, Coordinate_Transform CT ) throws IOException{
 	
 		mesh_and_plan Map = new mesh_and_plan();
-		
+		boolean add;
 		
 		
 		
@@ -44,12 +51,12 @@ public class Deploy_BS {
 		pol.addPoint(Map.plan_p2.x, Map.plan_p2.y);
 		pol.addPoint(Map.plan_p3.x, Map.plan_p3.y);
 		
-		
+		/*
 		System.out.println("Map.plan : ");
 		System.out.println(Map.plan_p1.x+","+Map.plan_p1.y);
 		System.out.println(Map.plan_p2.x+","+Map.plan_p2.y);
 		System.out.println(Map.plan_p3.x+","+Map.plan_p3.y);
-		
+		*/
 		
 		Line2D.Double l12 = new Line2D.Double();
 		l12.setLine(Map.plan_p1, Map.plan_p2);
@@ -85,7 +92,7 @@ public class Deploy_BS {
 			//System.out.println("DS32:"+line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])).getX1());
 			//L_list .add(line3D_to_2D(PK.Line.get(ii), TL.p_List.get(jj[0])));
 			Line2D.Double l = new Line2D.Double();
-			System.out.println("Line :" + ii);
+			//System.out.println("Line :" + ii);
 			
 			//PK.Line.get(ii).show();
 			
@@ -260,8 +267,8 @@ public class Deploy_BS {
 					IntersectionPoint = getIntersectionPoint(hk,l12);	
 					centerls.add(IntersectionPoint.getX());
 					centerls.add(IntersectionPoint.getY());
-					System.out.println("l12********************************* : ");
-					System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
+					//System.out.println("l12********************************* : ");
+					//System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
 				}
 				
 				else if(l13.intersectsLine(h1, k1, h, k)){
@@ -269,15 +276,15 @@ public class Deploy_BS {
 					IntersectionPoint = getIntersectionPoint(hk,l13);
 					
 					
-					System.out.println("IntersectionPoint");
+					//System.out.println("IntersectionPoint");
 					
-					System.out.println(IntersectionPoint.getX()+" , "+IntersectionPoint.getY());
+					//System.out.println(IntersectionPoint.getX()+" , "+IntersectionPoint.getY());
 					
 					
 					centerls.add(IntersectionPoint.getX());
 					centerls.add(IntersectionPoint.getY());
-					System.out.println("l13********************************* : ");
-					System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
+					//System.out.println("l13********************************* : ");
+					//System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
 				}
 				
 				else if(l23.intersectsLine(h1, k1, h, k)){	
@@ -285,12 +292,12 @@ public class Deploy_BS {
 					IntersectionPoint = getIntersectionPoint(hk,l23);	
 					centerls.add(IntersectionPoint.getX());
 					centerls.add(IntersectionPoint.getY());
-					System.out.println("l23********************************* : ");
-					System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
+					//System.out.println("l23********************************* : ");
+					//System.out.println(IntersectionPoint.getX()+","+IntersectionPoint.getY());
 				}
 				
 				else{
-					System.out.println("l23121212112121212121212121 : ");
+					//System.out.println("l23121212112121212121212121 : ");
 					centerls.add(h);
 					centerls.add(k);
 				}
@@ -299,7 +306,7 @@ public class Deploy_BS {
 				
 				
 				else{
-					System.out.println("pol.contains(h1,k1) is  :"+ pol.contains(h1,k1) +"********************************* ");	
+					//System.out.println("pol.contains(h1,k1) is  :"+ pol.contains(h1,k1) +"********************************* ");	
 					
 				centerls.add(h1);
 				centerls.add(k1);
@@ -313,8 +320,8 @@ public class Deploy_BS {
 				
 				if(pol.contains(ls.get(0),ls.get(1)))
 				{
-					System.out.println("rotation_1 contains");
-					System.out.println(ls.get(0)+" , "+ls.get(1));
+					//System.out.println("rotation_1 contains");
+					//System.out.println(ls.get(0)+" , "+ls.get(1));
 				centerls.add(ls.get(0));
 				centerls.add(ls.get(1));
 				}
@@ -324,11 +331,11 @@ public class Deploy_BS {
 				
 				else
 				{
-					System.out.println("307++++++++++++++++++++++++++++++++++");
+				//	System.out.println("307++++++++++++++++++++++++++++++++++");
 					Point2D.Double r1= new Point2D.Double(ls.get(0),ls.get(1));
 				 
 				 if(l12.ptLineDist(r1) <= l13.ptLineDist(r1)&&l12.ptLineDist(r1)<= l23.ptLineDist(r1)){
-					 System.out.println("311++++++++++++++++++++++++++++++++++");
+				//	 System.out.println("311++++++++++++++++++++++++++++++++++");
 					 Point2D.Double l12_1= new Point2D.Double(l12.x1,l12.y1);
 							 Point2D.Double l12_2= new Point2D.Double(l12.x2,l12.y2);
 							 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
@@ -337,22 +344,22 @@ public class Deploy_BS {
 					
 					 
 					if(List.size()==0){
-						System.out.println("318++++++++++++++++++++++++++++++++++");
-						if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+					//	System.out.println("318++++++++++++++++++++++++++++++++++");
+						if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)){
 							centerls.add(Map.plan_p1.x);
 							centerls.add(Map.plan_p1.y);
 						}
-						else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
-							System.out.println("324++++++++++++++++++++++++++++++++++");
+						else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)){
+						//	System.out.println("324++++++++++++++++++++++++++++++++++");
 							centerls.add(Map.plan_p2.x);
 							centerls.add(Map.plan_p2.y);
 						}
 						else{
-							System.out.println("329++++++++++++++++++++++++++++++++++");
+						//	System.out.println("329++++++++++++++++++++++++++++++++++");
 						}
 					}	
 					else if( List.size()==1){
-						System.out.println("333-------------------------");
+						//System.out.println("333-------------------------");
 						
 						centerls.add(List.get(0).x);
 						centerls.add(List.get(0).y);
@@ -360,13 +367,13 @@ public class Deploy_BS {
 					}
 					
 					else if( List.size()==2){
-						System.out.println("340++++++++++++++++++++++++++++++++++");
+						//System.out.println("340++++++++++++++++++++++++++++++++++");
 						if(r1.distance(List.get(0).x,List.get(0).y)<
 						r1.distance(List.get(1).x,List.get(1).y)){
 							
 							if(pol.contains(List.get(0).x,List.get(0).y)){
-								System.out.println("360-------------------------");
-								System.out.println(List.get(0).x+" , "+List.get(0).y);
+							//	System.out.println("360-------------------------");
+							//	System.out.println(List.get(0).x+" , "+List.get(0).y);
 								centerls.add(List.get(0).x);
 								centerls.add(List.get(0).y);
 							}
@@ -388,10 +395,10 @@ public class Deploy_BS {
 						}
 						
 						else{
-							System.out.println("347++++++++++++++++++++++++++++++++++");
+						//	System.out.println("347++++++++++++++++++++++++++++++++++");
 							if(pol.contains(List.get(1).x,List.get(1).y)){
-								System.out.println("383-------------------------");
-								System.out.println(List.get(1).x+" , "+List.get(1).y);
+						//		System.out.println("383-------------------------");
+						//		System.out.println(List.get(1).x+" , "+List.get(1).y);
 								centerls.add(List.get(1).x);
 								centerls.add(List.get(1).y);
 								}
@@ -416,29 +423,29 @@ public class Deploy_BS {
 				 }
 				 
 				 else if(l13.ptLineDist(r1) <= l12.ptLineDist(r1)&&l13.ptLineDist(r1)<= l23.ptLineDist(r1)){
-					 System.out.println("361++++++++++++++++++++++++++++++++++");
+				//	 System.out.println("361++++++++++++++++++++++++++++++++++");
 					 Point2D.Double l13_1= new Point2D.Double(l13.x1,l13.y1);
 					 Point2D.Double l13_2= new Point2D.Double(l13.x2,l13.y2);
 					 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
 					 List = getCircleLineIntersectionPoint(l13_1,l13_2,fist_center,dist);
 					 
 						if(List.size()==0){
-							System.out.println("318++++++++++++++++++++++++++++++++++");
-							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+						//	System.out.println("318++++++++++++++++++++++++++++++++++");
+							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)){
 								centerls.add(Map.plan_p1.x);
 								centerls.add(Map.plan_p1.y);
 							}
-							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
-								System.out.println("324++++++++++++++++++++++++++++++++++");
+							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)){
+							//	System.out.println("324++++++++++++++++++++++++++++++++++");
 								centerls.add(Map.plan_p2.x);
 								centerls.add(Map.plan_p2.y);
 							}
 							else{
-								System.out.println("329++++++++++++++++++++++++++++++++++");
+							//	System.out.println("329++++++++++++++++++++++++++++++++++");
 							}
 						}	
 						else if( List.size()==1){
-							System.out.println("333++++++++++++++++++++++++++++++++++");
+						//	System.out.println("333++++++++++++++++++++++++++++++++++");
 							
 							centerls.add(List.get(0).x);
 							centerls.add(List.get(0).y);
@@ -446,22 +453,22 @@ public class Deploy_BS {
 						}
 						
 						else if( List.size()==2){
-							System.out.println("340++++++++++++++++++++++++++++++++++");
+						//	System.out.println("340++++++++++++++++++++++++++++++++++");
 							if(r1.distance(List.get(0).x,List.get(0).y)<
 							r1.distance(List.get(1).x,List.get(1).y)){
-								System.out.println("446++++++++++++++++++++++++++++++++++");
-								System.out.println(List.get(0).x+" , "+List.get(0).y);
+								//System.out.println("446++++++++++++++++++++++++++++++++++");
+								//System.out.println(List.get(0).x+" , "+List.get(0).y);
 								
 								if(pol.contains(List.get(0).x,List.get(0).y)){
-									System.out.println("449++++++++++++++++++++++++++++++++++");
+								//	System.out.println("449++++++++++++++++++++++++++++++++++");
 									
-									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
-									System.out.println(pol.get_xpoint(1)+" , "+pol.get_ypoint(1));
-									System.out.println(pol.get_xpoint(2)+" , "+pol.get_ypoint(2));
+							//		System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
+							//		System.out.println(pol.get_xpoint(1)+" , "+pol.get_ypoint(1));
+							//		System.out.println(pol.get_xpoint(2)+" , "+pol.get_ypoint(2));
 									
-									System.out.println("455++++++++++++++++++++++++++++++++++");
+							//		System.out.println("455++++++++++++++++++++++++++++++++++");
 												
-									System.out.println(List.get(0).x+" , "+List.get(0).y);
+							//		System.out.println(List.get(0).x+" , "+List.get(0).y);
 									
 								centerls.add(List.get(0).x);
 								centerls.add(List.get(0).y);
@@ -471,12 +478,12 @@ public class Deploy_BS {
 									
 									if(l13.getP1().distance(List.get(0).x,List.get(0).y)
 									   <l13.getP2().distance(List.get(0).x,List.get(0).y)){
-										System.out.println("455++++++++++++++++++++++++++++++++++");
+								//		System.out.println("455++++++++++++++++++++++++++++++++++");
 										centerls.add(Map.plan_p1.x);
 										centerls.add(Map.plan_p1.y);
 									}
 									else{
-										System.out.println("460++++++++++++++++++++++++++++++++++");
+								//		System.out.println("460++++++++++++++++++++++++++++++++++");
 										centerls.add(Map.plan_p3.x);
 										centerls.add(Map.plan_p3.y);
 									}
@@ -484,9 +491,9 @@ public class Deploy_BS {
 								
 							}
 							else{
-								System.out.println("347++++++++++++++++++++++++++++++++++");
+							//	System.out.println("347++++++++++++++++++++++++++++++++++");
 								if(pol.contains(List.get(1).x,List.get(1).y)){
-									System.out.println(List.get(1).x+" , "+List.get(1).y);
+								//	System.out.println(List.get(1).x+" , "+List.get(1).y);
 									centerls.add(List.get(1).x);
 									centerls.add(List.get(1).y);
 									}
@@ -507,29 +514,29 @@ public class Deploy_BS {
 				 
 				 
 				 else if(l23.ptLineDist(r1) < l13.ptLineDist(r1)&&l23.ptLineDist(r1)< l12.ptLineDist(r1)){
-					 System.out.println("403++++++++++++++++++++++++++++++++++");
+				//	 System.out.println("403++++++++++++++++++++++++++++++++++");
 					 Point2D.Double l23_1= new Point2D.Double(l23.x1,l23.y1);
 					 Point2D.Double l23_2= new Point2D.Double(l23.x2,l23.y2);
 					 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
 					 List = getCircleLineIntersectionPoint(l23_1,l23_2,fist_center,dist);
 			 
 						if(List.size()==0){
-							System.out.println("318++++++++++++++++++++++++++++++++++");
-							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+					//		System.out.println("318++++++++++++++++++++++++++++++++++");
+							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)){
 								centerls.add(Map.plan_p1.x);
 								centerls.add(Map.plan_p1.y);
 							}
-							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
-								System.out.println("324++++++++++++++++++++++++++++++++++");
+							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)){
+						//		System.out.println("324++++++++++++++++++++++++++++++++++");
 								centerls.add(Map.plan_p2.x);
 								centerls.add(Map.plan_p2.y);
 							}
 							else{
-								System.out.println("329++++++++++++++++++++++++++++++++++");
+						//		System.out.println("329++++++++++++++++++++++++++++++++++");
 							}
 						}	
 						else if( List.size()==1){
-							System.out.println("333++++++++++++++++++++++++++++++++++");
+						//	System.out.println("333++++++++++++++++++++++++++++++++++");
 							
 							centerls.add(List.get(0).x);
 							centerls.add(List.get(0).y);
@@ -537,18 +544,18 @@ public class Deploy_BS {
 						}
 						
 						else if( List.size()==2){
-							System.out.println("340++++++++++++++++++++++++++++++++++");
+						//	System.out.println("340++++++++++++++++++++++++++++++++++");
 							if(r1.distance(List.get(0).x,List.get(0).y)<
 							r1.distance(List.get(1).x,List.get(1).y)){
 								
-								System.out.println(List.get(0).x+" , "+List.get(0).y);
+							//	System.out.println(List.get(0).x+" , "+List.get(0).y);
 								
 								if(pol.contains(List.get(0).x,List.get(0).y)){
-									System.out.println("540++++++++++++++++++++++++++++++++++");
-									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
-									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(1));
-									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(2));
-									System.out.println(List.get(0).x+" , "+List.get(0).y);
+							//		System.out.println("540++++++++++++++++++++++++++++++++++");
+							//		System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
+							////		System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(1));
+							//		System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(2));
+							//		System.out.println(List.get(0).x+" , "+List.get(0).y);
 								centerls.add(List.get(0).x);
 								centerls.add(List.get(0).y);
 								}
@@ -567,9 +574,9 @@ public class Deploy_BS {
 								
 							}
 							else{
-								System.out.println("347++++++++++++++++++++++++++++++++++");
+							//	System.out.println("347++++++++++++++++++++++++++++++++++");
 								if(pol.contains(List.get(1).x,List.get(1).y)){
-									System.out.println(List.get(1).x+" , "+List.get(1).y);
+							//		System.out.println(List.get(1).x+" , "+List.get(1).y);
 									centerls.add(List.get(1).x);
 									centerls.add(List.get(1).y);
 									}
@@ -597,8 +604,8 @@ public class Deploy_BS {
 				
 				if(pol.contains(ls.get(0),ls.get(1)))
 				{
-					System.out.println("rotation_2 contains");
-					System.out.println(ls.get(0)+" , "+ls.get(1));
+				//	System.out.println("rotation_2 contains");
+				//	System.out.println(ls.get(0)+" , "+ls.get(1));
 				centerls.add(ls.get(0));
 				centerls.add(ls.get(1));
 				}
@@ -608,11 +615,11 @@ public class Deploy_BS {
 				
 				else
 				{
-					System.out.println("307++++++++++++++++++++++++++++++++++");
+				//	System.out.println("307++++++++++++++++++++++++++++++++++");
 					Point2D.Double r1= new Point2D.Double(ls.get(0),ls.get(1));
 				 
 				 if(l12.ptLineDist(r1) <= l13.ptLineDist(r1)&&l12.ptLineDist(r1)<= l23.ptLineDist(r1)){
-					 System.out.println("311++++++++++++++++++++++++++++++++++");
+				//	 System.out.println("311++++++++++++++++++++++++++++++++++");
 					 Point2D.Double l12_1= new Point2D.Double(l12.x1,l12.y1);
 							 Point2D.Double l12_2= new Point2D.Double(l12.x2,l12.y2);
 							 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
@@ -621,22 +628,22 @@ public class Deploy_BS {
 					
 					 
 					if(List.size()==0){
-						System.out.println("318++++++++++++++++++++++++++++++++++");
-						if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+				//		System.out.println("318++++++++++++++++++++++++++++++++++");
+						if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)){
 							centerls.add(Map.plan_p1.x);
 							centerls.add(Map.plan_p1.y);
 						}
-						else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
-							System.out.println("324++++++++++++++++++++++++++++++++++");
+						else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)){
+					//		System.out.println("324++++++++++++++++++++++++++++++++++");
 							centerls.add(Map.plan_p2.x);
 							centerls.add(Map.plan_p2.y);
 						}
 						else{
-							System.out.println("329++++++++++++++++++++++++++++++++++");
+					//		System.out.println("329++++++++++++++++++++++++++++++++++");
 						}
 					}	
 					else if( List.size()==1){
-						System.out.println("333-------------------------");
+					//	System.out.println("333-------------------------");
 						
 						centerls.add(List.get(0).x);
 						centerls.add(List.get(0).y);
@@ -644,13 +651,13 @@ public class Deploy_BS {
 					}
 					
 					else if( List.size()==2){
-						System.out.println("340++++++++++++++++++++++++++++++++++");
+					//	System.out.println("340++++++++++++++++++++++++++++++++++");
 						if(r1.distance(List.get(0).x,List.get(0).y)<
 						r1.distance(List.get(1).x,List.get(1).y)){
 							
 							if(pol.contains(List.get(0).x,List.get(0).y)){
-								System.out.println("360-------------------------");
-								System.out.println(List.get(0).x+" , "+List.get(0).y);
+					//			System.out.println("360-------------------------");
+					//			System.out.println(List.get(0).x+" , "+List.get(0).y);
 								centerls.add(List.get(0).x);
 								centerls.add(List.get(0).y);
 							}
@@ -672,10 +679,10 @@ public class Deploy_BS {
 						}
 						
 						else{
-							System.out.println("347++++++++++++++++++++++++++++++++++");
+					//		System.out.println("347++++++++++++++++++++++++++++++++++");
 							if(pol.contains(List.get(1).x,List.get(1).y)){
-								System.out.println("383-------------------------");
-								System.out.println(List.get(1).x+" , "+List.get(1).y);
+					//			System.out.println("383-------------------------");
+					//			System.out.println(List.get(1).x+" , "+List.get(1).y);
 								centerls.add(List.get(1).x);
 								centerls.add(List.get(1).y);
 								}
@@ -700,29 +707,29 @@ public class Deploy_BS {
 				 }
 				 
 				 else if(l13.ptLineDist(r1) <= l12.ptLineDist(r1)&&l13.ptLineDist(r1)<= l23.ptLineDist(r1)){
-					 System.out.println("361++++++++++++++++++++++++++++++++++");
+				//	 System.out.println("361++++++++++++++++++++++++++++++++++");
 					 Point2D.Double l13_1= new Point2D.Double(l13.x1,l13.y1);
 					 Point2D.Double l13_2= new Point2D.Double(l13.x2,l13.y2);
 					 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
 					 List = getCircleLineIntersectionPoint(l13_1,l13_2,fist_center,dist);
 					 
 						if(List.size()==0){
-							System.out.println("318++++++++++++++++++++++++++++++++++");
-							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+				//			System.out.println("318++++++++++++++++++++++++++++++++++");
+							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)){
 								centerls.add(Map.plan_p1.x);
 								centerls.add(Map.plan_p1.y);
 							}
-							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
-								System.out.println("324++++++++++++++++++++++++++++++++++");
+							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)){
+				//				System.out.println("324++++++++++++++++++++++++++++++++++");
 								centerls.add(Map.plan_p2.x);
 								centerls.add(Map.plan_p2.y);
 							}
 							else{
-								System.out.println("329++++++++++++++++++++++++++++++++++");
+				//				System.out.println("329++++++++++++++++++++++++++++++++++");
 							}
 						}	
 						else if( List.size()==1){
-							System.out.println("333++++++++++++++++++++++++++++++++++");
+				//			System.out.println("333++++++++++++++++++++++++++++++++++");
 							
 							centerls.add(List.get(0).x);
 							centerls.add(List.get(0).y);
@@ -730,22 +737,22 @@ public class Deploy_BS {
 						}
 						
 						else if( List.size()==2){
-							System.out.println("340++++++++++++++++++++++++++++++++++");
+				//			System.out.println("340++++++++++++++++++++++++++++++++++");
 							if(r1.distance(List.get(0).x,List.get(0).y)<
 							r1.distance(List.get(1).x,List.get(1).y)){
-								System.out.println("446++++++++++++++++++++++++++++++++++");
-								System.out.println(List.get(0).x+" , "+List.get(0).y);
+				//				System.out.println("446++++++++++++++++++++++++++++++++++");
+				//				System.out.println(List.get(0).x+" , "+List.get(0).y);
 								
 								if(pol.contains(List.get(0).x,List.get(0).y)){
-									System.out.println("449++++++++++++++++++++++++++++++++++");
+				//					System.out.println("449++++++++++++++++++++++++++++++++++");
 									
-									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
-									System.out.println(pol.get_xpoint(1)+" , "+pol.get_ypoint(1));
-									System.out.println(pol.get_xpoint(2)+" , "+pol.get_ypoint(2));
+				//					System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
+				//					System.out.println(pol.get_xpoint(1)+" , "+pol.get_ypoint(1));
+				//					System.out.println(pol.get_xpoint(2)+" , "+pol.get_ypoint(2));
 									
-									System.out.println("455++++++++++++++++++++++++++++++++++");
+				//					System.out.println("455++++++++++++++++++++++++++++++++++");
 												
-									System.out.println(List.get(0).x+" , "+List.get(0).y);
+				//					System.out.println(List.get(0).x+" , "+List.get(0).y);
 									
 								centerls.add(List.get(0).x);
 								centerls.add(List.get(0).y);
@@ -755,12 +762,12 @@ public class Deploy_BS {
 									
 									if(l13.getP1().distance(List.get(0).x,List.get(0).y)
 									   <l13.getP2().distance(List.get(0).x,List.get(0).y)){
-										System.out.println("455++++++++++++++++++++++++++++++++++");
+										//System.out.println("455++++++++++++++++++++++++++++++++++");
 										centerls.add(Map.plan_p1.x);
 										centerls.add(Map.plan_p1.y);
 									}
 									else{
-										System.out.println("460++++++++++++++++++++++++++++++++++");
+										//System.out.println("460++++++++++++++++++++++++++++++++++");
 										centerls.add(Map.plan_p3.x);
 										centerls.add(Map.plan_p3.y);
 									}
@@ -768,9 +775,9 @@ public class Deploy_BS {
 								
 							}
 							else{
-								System.out.println("347++++++++++++++++++++++++++++++++++");
+								//System.out.println("347++++++++++++++++++++++++++++++++++");
 								if(pol.contains(List.get(1).x,List.get(1).y)){
-									System.out.println(List.get(1).x+" , "+List.get(1).y);
+									//System.out.println(List.get(1).x+" , "+List.get(1).y);
 									centerls.add(List.get(1).x);
 									centerls.add(List.get(1).y);
 									}
@@ -791,29 +798,29 @@ public class Deploy_BS {
 				 
 				 
 				 else if(l23.ptLineDist(r1) < l13.ptLineDist(r1)&&l23.ptLineDist(r1)< l12.ptLineDist(r1)){
-					 System.out.println("403++++++++++++++++++++++++++++++++++");
+					// System.out.println("403++++++++++++++++++++++++++++++++++");
 					 Point2D.Double l23_1= new Point2D.Double(l23.x1,l23.y1);
 					 Point2D.Double l23_2= new Point2D.Double(l23.x2,l23.y2);
 					 List<Point2D.Double> List = new ArrayList<Point2D.Double>();
 					 List = getCircleLineIntersectionPoint(l23_1,l23_2,fist_center,dist);
 			 
 						if(List.size()==0){
-							System.out.println("318++++++++++++++++++++++++++++++++++");
-							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)&&Map.plan_p1.x>fist_center.getX()){
+							//System.out.println("318++++++++++++++++++++++++++++++++++");
+							if(Map.plan_p1.distance(r1) < Map.plan_p2.distance(r1)){
 								centerls.add(Map.plan_p1.x);
 								centerls.add(Map.plan_p1.y);
 							}
-							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)&&Map.plan_p2.x>fist_center.getX()){
-								System.out.println("324++++++++++++++++++++++++++++++++++");
+							else if(Map.plan_p1.distance(r1) > Map.plan_p2.distance(r1)){
+								//System.out.println("324++++++++++++++++++++++++++++++++++");
 								centerls.add(Map.plan_p2.x);
 								centerls.add(Map.plan_p2.y);
 							}
 							else{
-								System.out.println("329++++++++++++++++++++++++++++++++++");
+								//System.out.println("329++++++++++++++++++++++++++++++++++");
 							}
 						}	
 						else if( List.size()==1){
-							System.out.println("333++++++++++++++++++++++++++++++++++");
+							//System.out.println("333++++++++++++++++++++++++++++++++++");
 							
 							centerls.add(List.get(0).x);
 							centerls.add(List.get(0).y);
@@ -821,18 +828,18 @@ public class Deploy_BS {
 						}
 						
 						else if( List.size()==2){
-							System.out.println("340++++++++++++++++++++++++++++++++++");
+							//System.out.println("340++++++++++++++++++++++++++++++++++");
 							if(r1.distance(List.get(0).x,List.get(0).y)<
 							r1.distance(List.get(1).x,List.get(1).y)){
 								
-								System.out.println(List.get(0).x+" , "+List.get(0).y);
+								//System.out.println(List.get(0).x+" , "+List.get(0).y);
 								
 								if(pol.contains(List.get(0).x,List.get(0).y)){
-									System.out.println("540++++++++++++++++++++++++++++++++++");
-									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
-									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(1));
-									System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(2));
-									System.out.println(List.get(0).x+" , "+List.get(0).y);
+									//System.out.println("540++++++++++++++++++++++++++++++++++");
+									//System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(0));
+									//System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(1));
+									//System.out.println(pol.get_xpoint(0)+" , "+pol.get_ypoint(2));
+									//System.out.println(List.get(0).x+" , "+List.get(0).y);
 								centerls.add(List.get(0).x);
 								centerls.add(List.get(0).y);
 								}
@@ -851,9 +858,9 @@ public class Deploy_BS {
 								
 							}
 							else{
-								System.out.println("347++++++++++++++++++++++++++++++++++");
+							//	System.out.println("347++++++++++++++++++++++++++++++++++");
 								if(pol.contains(List.get(1).x,List.get(1).y)){
-									System.out.println(List.get(1).x+" , "+List.get(1).y);
+								//	System.out.println(List.get(1).x+" , "+List.get(1).y);
 									centerls.add(List.get(1).x);
 									centerls.add(List.get(1).y);
 									}
@@ -899,7 +906,7 @@ public class Deploy_BS {
 
 				tmp = 0;
 
-
+				covered_intersection.clear();
 				for (; z < centerls.size();) {
 
 					newlinels.clear();
@@ -916,39 +923,151 @@ public class Deploy_BS {
 								linels.get(j + 3), centerls.get(z),
 								centerls.get(z + 1), r);
 
+						if(coverls.size()==0){
+							covered_intersection.add(linels.get(j));
+							covered_intersection.add(linels.get(j+1));
+							covered_intersection.add(linels.get(j+2));
+							covered_intersection.add(linels.get(j+3));
+							
+						}
+						
+						
+						if(Point2D.Double.distance(centerls.get(z), centerls.get(z+1), linels.get(j), linels.get(j+1))<=r){
+								covered_intersection.add(linels.get(j));
+								covered_intersection.add(linels.get(j+1));
+						}
+						if(Point2D.Double.distance(centerls.get(z), centerls.get(z+1), linels.get(j+2), linels.get(j+3))<=r){
+								covered_intersection.add(linels.get(j+2));
+								covered_intersection.add(linels.get(j+3));
+						}
+							
+							
+						for(int cls =0; cls<coverls.size();cls=cls+2){
+							if(Point2D.Double.distance(centerls.get(z), centerls.get(z+1), coverls.get(cls), coverls.get(cls+1))<=r){
+								covered_intersection.add(coverls.get(cls));
+								covered_intersection.add(coverls.get(cls+1));
+						}
+						}
+							
+						
+						
+						
+						
+						
 						for (tmp = 0; tmp < coverls.size(); tmp++)
 							newlinels.add(coverls.get(tmp));
+						
+						
 
 					}
 
 					linels.clear();
 					z = z + 2;
 
-					for (i = 0; i < newlinels.size(); i++)
-						linels.add(newlinels.get(i));
-/*
-					System.out.println("stop:" + stop);
-					System.out.println("z:" + z);
-					System.out.println("centerls.size:" + centerls.size());
-*/
+					
+					for (tmp = 0; tmp < newlinels.size(); tmp++)
+						linels.add(newlinels.get(tmp));
+					
+
+					//System.out.println("stop:" + stop);
+					//System.out.println("z:" + z);
+					//System.out.println("centerls.size:" + centerls.size());
+
 					
 			//		for (i = 0; i < linels.size(); i++)
 			//			System.out.println("linels:" + linels.get(i));
 			
-					System.out.println("linels size:" + i);
+				//	System.out.println("linels size:" + i);
 				}
 
 				if (linels.size() == 0)
 					stop = 1;
 
+				
+				boolean one_cover = false;
+				for(int t=centerls.size()-8; t<centerls.size()&&one_cover == false;t=t+2){//1個cover全部
+					
+					//System.out.println("t: "+t);
+					one_cover = true;
+					
+					if(covered_intersection.size()!=0){
+					for(int tt=0; tt<covered_intersection.size();tt=tt+2){
+					//	System.out.println("tt: "+tt);
+					if(Point2D.Double.distance(centerls.get(t), centerls.get(t+1), covered_intersection.get(tt), covered_intersection.get(tt+1))>r){
+						one_cover = false;
+					}
+					}
+					}
+					
+					if(one_cover == true){
+					//	System.out.println("one_cover:" + one_cover);
+						new_centerls.add(centerls.get(t));
+						new_centerls.add(centerls.get(t+1));
+					}	
+				}
+				
+				
+				boolean two_cover = false;
+				
+				if(one_cover == false){
+					
+					for(int t=centerls.size()-8; t<centerls.size()&&two_cover == false;t=t+2){//2個cover全部
+							
+						for(int tt=t+2; tt<centerls.size()&&two_cover == false;tt=tt+2){
+							two_cover = true;
+							for(int ttt=0; ttt<covered_intersection.size();ttt=ttt+2){
+							if(Point2D.Double.distance(centerls.get(t), centerls.get(t+1), covered_intersection.get(ttt), covered_intersection.get(ttt+1))>r
+									&&Point2D.Double.distance(centerls.get(tt), centerls.get(tt+1), covered_intersection.get(ttt), covered_intersection.get(ttt+1))>r){
+								two_cover = false;
+							}
+							}
+							if(two_cover == true){
+							//	System.out.println("two_cover:" + two_cover);
+								new_centerls.add(centerls.get(t));
+								new_centerls.add(centerls.get(t+1));
+								new_centerls.add(centerls.get(tt));
+								new_centerls.add(centerls.get(tt+1));
+								
+							}
+						}
+							
+					}
+					
+					
+				}
+				
+				
+				
+				
+				
+				if(one_cover == false&&two_cover == false){ //3cover
+					
+					new_centerls.add(centerls.get(centerls.size()-8));
+					new_centerls.add(centerls.get(centerls.size()-7));
+					new_centerls.add(centerls.get(centerls.size()-6));
+					new_centerls.add(centerls.get(centerls.size()-5));
+					new_centerls.add(centerls.get(centerls.size()-4));
+					new_centerls.add(centerls.get(centerls.size()-3));
+					new_centerls.add(centerls.get(centerls.size()-2));
+					new_centerls.add(centerls.get(centerls.size()-1));
+				}
+				
+				
+				
+				
+				
+				
+				covered_intersection.clear();
 
 			} while (stop == 0);
+			//System.out.println("centerls : " + centerls.size());
+			//System.out.println("new_centerls : " + new_centerls.size());
 	/////////////////////////////////////////////////////////////////////////////////
 		for(i=0;i<PK.Line.size();i++){
-			PK.Line.get(i).show();
+			//PK.Line.get(i).show();
 			Line2D.Double l = new Line2D.Double();
 			l = Map.project(PK.Line.get(i));
-			System.out.println("Line2D : " + l.getX1()+" , "+l.getY1()+" , "+ l.getX2()+" , "+ l.getY2());
+			//System.out.println("Line2D : " + l.getX1()+" , "+l.getY1()+" , "+ l.getX2()+" , "+ l.getY2());
 		}
 		
 		/*
@@ -962,13 +1081,13 @@ public class Deploy_BS {
 			
 			 ArrayList<Point3D> center = new ArrayList<Point3D>();
 			
-			for(i=0;i<centerls.size();i=i+2){
+			for(i=0;i<new_centerls.size();i=i+2){   //centerls
 			/*
 			System.out.println("D224:" +Map.plan_p1.x+","+Map.plan_p1.y);	
 			System.out.println("D224:" +Map.plan_p2.x+","+Map.plan_p2.y);	
 			System.out.println("D224:" +Map.plan_p3.x+","+Map.plan_p3.y);
 			*/
-			System.out.println("centerls"+i+":"+centerls.get(i)+","+ centerls.get(i+1));
+			//System.out.println("centerls"+i+":"+centerls.get(i)+","+ centerls.get(i+1));
 			
 			
 			
@@ -976,21 +1095,125 @@ public class Deploy_BS {
 		   // if(pol.contains(centerls.get(i),centerls.get(i+1))==true)
 		   // {	
 				
-		    	if(Map.plan_p1.distance(centerls.get(i), centerls.get(i+1))==0){
+		    	if(Map.plan_p1.distance(new_centerls.get(i), new_centerls.get(i+1))==0){
 				Point3D p = Map.p1;
-				center.add(p);
+				
+				add = true;
+	    		
+	    		for(int add1=0; add1<center.size();add1++){
+	    			if(p.distance(center.get(add1))<=10.0){
+	    				// System.out.println("center.txt add1");
+	    				add = false;
+	    			}
+	    		}
+	    		
+	    		
+	    		FileWriter fw1 = new FileWriter("center.txt",true);
+	    		fw1.close();
+	    		
+	    		FileReader fr1 = new FileReader("center.txt");
+	 	        BufferedReader br1 = new BufferedReader(fr1);
+	 	        String str1 ;	 	        
+	 	        double x4=0, y4=0, z4=0;     
+	 	      // System.out.println("center.txt");
+	 	        while((str1 = br1.readLine())!= null){
+	 	        String tempArray1[]  = str1.split(" ");//分割 
+	 	        x4 = Double.parseDouble(tempArray1[0]);
+				 y4 = Double.parseDouble(tempArray1[1]);
+				 z4 = Double.parseDouble(tempArray1[2]);
+				
+				 if(p.distance(x4,y4,z4)<=10.0){
+					 //System.out.println("center.txt add");
+	    			 add = false;
+	    			}
+				 
+				
+	 	        }
+	 	        
+	 	        
+	 	        
+	 	       if(add == true)
+	 	    	   center.add(p);
 				//System.out.println("center3D:"+p.getX()+","+p.getX()+","+p.getZ());
 		    	}
 			
-		    	else if(Map.plan_p2.distance(centerls.get(i), centerls.get(i+1))==0){
+		    	else if(Map.plan_p2.distance(new_centerls.get(i),new_centerls.get(i+1))==0){
 				Point3D p = Map.p2;
-				center.add(p);
+				add = true;
+	    		
+	    		for(int add1=0; add1<center.size();add1++){
+	    			if(p.distance(center.get(add1))<=10.0){
+	    				//System.out.println("center.txt add1");
+	    				add = false;
+	    			}
+	    		}
+	    		
+	    		
+	    		FileWriter fw1 = new FileWriter("center.txt",true);
+	    		fw1.close();
+	    		
+	    		FileReader fr1 = new FileReader("center.txt");
+	 	        BufferedReader br1 = new BufferedReader(fr1);
+	 	        String str1 ;	 	        
+	 	        double x4=0, y4=0, z4=0;     
+	 	      // System.out.println("center.txt");
+	 	        while((str1 = br1.readLine())!= null){
+	 	        String tempArray1[]  = str1.split(" ");//分割 
+	 	        x4 = Double.parseDouble(tempArray1[0]);
+				 y4 = Double.parseDouble(tempArray1[1]);
+				 z4 = Double.parseDouble(tempArray1[2]);
+				 
+				 if(p.distance(x4,y4,z4)<=10.0){
+	    			 add = false;
+	    			// System.out.println("center.txt add");
+	    			}
+				 
+				 
+	 	        }
+	 	        
+	 	        
+	 	        
+	 	       if(add == true)
+	 	    	   center.add(p);
 				//System.out.println("center3D:"+p.getX()+","+p.getX()+","+p.getZ());
 		    	}
 			
-		    	else if(Map.plan_p3.distance(centerls.get(i), centerls.get(i+1))==0){
+		    	else if(Map.plan_p3.distance(new_centerls.get(i), new_centerls.get(i+1))==0){
 				Point3D p = Map.p3;
-				center.add(p);
+				add = true;
+	    		
+	    		for(int add1=0; add1<center.size();add1++){
+	    			if(p.distance(center.get(add1))<=10.0){
+	    				//System.out.println("center.txt add1");
+	    				add = false;
+	    			}
+	    		}
+	    		
+	    		
+	    		FileWriter fw1 = new FileWriter("center.txt",true);
+	    		fw1.close();
+	    		
+	    		FileReader fr1 = new FileReader("center.txt");
+	 	        BufferedReader br1 = new BufferedReader(fr1);
+	 	        String str1 ;	 	        
+	 	        double x4=0, y4=0, z4=0;     
+	 	      // System.out.println("center.txt");
+	 	        while((str1 = br1.readLine())!= null){
+	 	        String tempArray1[]  = str1.split(" ");//分割 
+	 	        x4 = Double.parseDouble(tempArray1[0]);
+				 y4 = Double.parseDouble(tempArray1[1]);
+				 z4 = Double.parseDouble(tempArray1[2]);
+				
+				 if(p.distance(x4,y4,z4)<=10.0){
+					// System.out.println("center.txt add");
+	    			 add = false;
+	    			}
+	 	        }
+	 	        
+	 	        
+	 	        
+	 	       if(add == true)
+	 	    	   center.add(p);
 				//System.out.println("center3D:"+p.getX()+","+p.getX()+","+p.getZ());
 		    	}
 			
@@ -1013,19 +1236,53 @@ public class Deploy_BS {
 			
 				System.out.println("center2D:"+centerls.get(i)+","+centerls.get(i+1));
 				*/
-					Point2D.Double center2D = new Point2D.Double(centerls.get(i), centerls.get(i+1));
+					Point2D.Double center2D = new Point2D.Double(new_centerls.get(i), new_centerls.get(i+1));
 					
 					
-					System.out.println("center2D : "+center2D.getX()+","+center2D.getY());
+				//	System.out.println("center2D : "+center2D.getX()+","+center2D.getY());
 					
 					
 		    		Point3D p =
 					Point2D_to_Point3D.Calcute(Map, center2D);
-					center.add(p);
+		    		add = true;
+	    		
+		    		for(int add1=0; add1<center.size();add1++){
+		    			if(p.distance(center.get(add1))<=10.0){
+		    			//	System.out.println("center.txt add1");
+		    				add = false;
+		    			}
+		    		}
+		    		
+		    		
+		    		FileWriter fw1 = new FileWriter("center.txt",true);
+		    		fw1.close();
+		    		
+		    		FileReader fr1 = new FileReader("center.txt");
+		 	        BufferedReader br1 = new BufferedReader(fr1);
+		 	        String str1 ;	 	        
+		 	        double x4=0, y4=0, z4=0;     
+		 	      // System.out.println("center.txt");
+		 	        while((str1 = br1.readLine())!= null){
+		 	        String tempArray1[]  = str1.split(" ");//分割 
+		 	        x4 = Double.parseDouble(tempArray1[0]);
+					 y4 = Double.parseDouble(tempArray1[1]);
+					 z4 = Double.parseDouble(tempArray1[2]);
+					 
+					 if(p.distance(x4,y4,z4)<=10.0){
+						// System.out.println("center.txt add");
+		    			 add = false;
+		    			}
+					 
+					
+		 	        }
+		 	        
+		 	        
+		 	        
+		 	       if(add == true)
+		 	    	   center.add(p);
 					
 					
-					
-			System.out.println("center3D:"+p.getX()+","+p.getY()+","+p.getZ());
+		//	System.out.println("center3D:"+p.getX()+","+p.getY()+","+p.getZ());
 			
 			
 			//}
@@ -1307,7 +1564,7 @@ public class Deploy_BS {
 									// 由上下點與焦點產生角選較大的, double &X, double &Y
 	{
 		Point2D.Double p =new Point2D.Double();
-		System.out.println("center_on_angular");
+		//System.out.println("center_on_angular");
 		// int tj;
 		double A, B, C, t, t1, xx, yy, x, y, cx, cy, kk, bb;
 
@@ -1758,7 +2015,7 @@ ls.add(y1);
 public Point2D.Double getIntersectionPoint(Line2D.Double line1, Line2D.Double line2) {
 		    if (! line1.intersectsLine(line2) )
 		    	{
-		    	System.out.println(" line1.intersectsLine(line2) :" + line1.intersectsLine(line2));
+		    	//System.out.println(" line1.intersectsLine(line2) :" + line1.intersectsLine(line2));
 		    	return null;
 		    	}
 		      
@@ -1774,19 +2031,19 @@ public Point2D.Double getIntersectionPoint(Line2D.Double line1, Line2D.Double li
 		      double det = sx*ry - sy*rx;
 		      
 		      if (det == 0) {
-		    	  System.out.println("det :+++++++++++++++++++ "+det);
+		    	//  System.out.println("det :+++++++++++++++++++ "+det);
 		        return null;
 		      }
 		      
 		      else {
 		        double z = (sx*(qy-py)+sy*(px-qx))/det;
-		        System.out.println("z : "+z);
+		       // System.out.println("z : "+z);
 		        
 		        if (z==0 ||  z==1){ 
-		        System.out.println(px+" , "+py);
-		        System.out.println(rx+" , "+ry);
-		        System.out.println(qx+" , "+qy);
-		        System.out.println(sx+" , "+sy);
+		    //    System.out.println(px+" , "+py);
+		    //    System.out.println(rx+" , "+ry);
+		    //    System.out.println(qx+" , "+qy);
+		    //    System.out.println(sx+" , "+sy);
 		        
 		        if(rx ==0 && ry==0)
 		        {
@@ -1845,12 +2102,12 @@ public Point2D.Double getIntersectionPoint(Line2D.Double line1, Line2D.Double li
         Point2D.Double p2 = new Point2D.Double(pointA.x - baX * abScalingFactor2, pointA.y
                 - baY * abScalingFactor2);
         
-        System.out.println("getCircleLineIntersectionPoint : ");
-        System.out.println(pointA.getX()+" , "+ pointA.getY());
-        System.out.println(pointB.getX()+" , "+ pointB.getY());
-        System.out.println(p1.getX()+", "+p1.getY());
-        System.out.println(p2.getX()+", "+p2.getY());
-        System.out.println();
+    //    System.out.println("getCircleLineIntersectionPoint : ");
+    //    System.out.println(pointA.getX()+" , "+ pointA.getY());
+    //    System.out.println(pointB.getX()+" , "+ pointB.getY());
+    //    System.out.println(p1.getX()+", "+p1.getY());
+    //    System.out.println(p2.getX()+", "+p2.getY());
+    //    System.out.println();
         
         return Arrays.asList(p1, p2);
     }

@@ -200,7 +200,7 @@ public class mesh_and_plan {
 				P.y = p1.y();
 				  if( P.distance(p.getX(),p.getY())!=p.distance(P.getX(),P.getY(),p.getZ()))
 				  {
-					  System.out.println("********************************************"); 
+					//  System.out.println("********************************************"); 
 					 
 				  }
 				return P;
@@ -213,7 +213,7 @@ public class mesh_and_plan {
 			 // System.out.println("Pp distance:" + p.distance(P.getX(),P.getY(),p.getZ()));
 			  if( P.distance(p.getX(),p.getY())!=p.distance(P.getX(),P.getY(),p.getZ()))
 			  {
-				  System.out.println("********************************************"); 
+				 // System.out.println("********************************************"); 
 				
 			  }
 			  return P;

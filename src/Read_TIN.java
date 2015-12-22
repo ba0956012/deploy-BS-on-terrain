@@ -113,7 +113,7 @@ public void tinFile(String InputFile, String OutputFil) throws IOException{
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	System.out.println(TIN_List.size());
+	//System.out.println(TIN_List.size());
 	TIN_File TF = new TIN_File();
 	TF.create_TIN(TIN_List);
 	TF.create_TIN_File(OutputFil);

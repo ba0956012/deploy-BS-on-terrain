@@ -67,10 +67,10 @@ public class Deploy_BS_on_Terrain {
 		    // System.out.println("TP "+i+" : "+TP.getX()+","+TP.getY()+","+TP.getZ());	
 		    TL1.add(TP);
 		    }
-		    System.out.println("TL.p_List.size"+TL.p_List.size());
+		    //System.out.println("TL.p_List.size"+TL.p_List.size());
 		    TL.p_List = TL1; 
-		    System.out.println("TL1.size"+TL1.size());
-		    System.out.println("TL1.p_List.size"+TL.p_List.size());
+		    //System.out.println("TL1.size"+TL1.size());
+		    //System.out.println("TL1.p_List.size"+TL.p_List.size());
 		    
 		    
 		    FileWriter FW = new FileWriter("DtestTIN.tin");
@@ -103,10 +103,11 @@ public class Deploy_BS_on_Terrain {
 		   */ 
 		    
 		    //System.out.println("TL.t_List.size():"+TL.t_List.size());
+		    System.out.println("Read Path");
 		    ArrayList<Line2D.Double> l = new ArrayList<Line2D.Double>();
 		    l = Read_line.read(Path_File, CT);
 		    
-		    System.out.println("l.size(): "+l.size());
+		  //  System.out.println("l.size(): "+l.size());
 		    for(int i=0; i<l.size();i++){
 		    	
 		    	Line2D.Double ll= new Line2D.Double();
@@ -130,12 +131,14 @@ public class Deploy_BS_on_Terrain {
 		    	//System.out.println( l.get(i).x2+","+ l.get(i).y2);
 		    	//System.out.println(" ");
 		    }
-		    System.out.println("ll.size(): "+l.size());
+		 //   System.out.println("ll.size(): "+l.size());
 		  
 		   // l = Read_line.read("path.txt");
 		    //System.out.println(l.get(0).getX1());
 		    Geodesic g = new Geodesic();
 		    //g.cal_Geodesic(TL.t_List, TL.p_List, l);
+		    
+		    System.out.println("Geodesic");
 		    
 		    g.cal_Geodesic(TL.t_List, TL.p_List, l);
 		    
@@ -176,7 +179,7 @@ public class Deploy_BS_on_Terrain {
     						
     					);	
 		    
-		     System.out.println("GL :"+ GL.GL.size());
+		 //    System.out.println("GL :"+ GL.GL.size());
 		    
 		    for(int zz=0;zz<GL.GL.size();zz++)
 		    {
@@ -194,19 +197,20 @@ public class Deploy_BS_on_Terrain {
 		    
 		   // System.out.println("de"+de);
 		    
+		    System.out.println("covered_package");
 		    covered_package CP = new covered_package();
 		    ArrayList<covered_package> CP_L = new ArrayList();
 		    
 		    CP_L = CP.into(TL, GL);
 		    
-		    System.out.println("CP_L : " + CP_L .size());
+		   // System.out.println("CP_L : " + CP_L .size());
 		    
 		    FileWriter fw1 = new FileWriter("GeoPath1.txt", true);
 		    
 			   
 		    
     						
-		   
+		    System.out.println("Deploy_BS");
 		    for(int i = 0;i<CP_L.size();i++){
 		    	
 		    	if(CP_L.get(i).Line.size()>0){
@@ -236,7 +240,7 @@ public class Deploy_BS_on_Terrain {
 		    fw.close();
 		    
 		    
-   
+		    System.out.println("Finish");
 		    
 		    //covered_package cp = new covered_package();
 		    //cp.create_package(TL, GL);

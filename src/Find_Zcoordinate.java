@@ -77,8 +77,8 @@ public class Find_Zcoordinate {
 	   double vpt = v1 * vp1 + v2 * vp2 + v3 * vp3; 
 	   if (vpt == 0)  
 	   {  
-		   System.out.println("vpt == 0");
-		   System.exit(0);;
+		   //System.out.println("vpt == 0");
+		   //System.exit(0);;
 	   return 0;  
 	   } 
 	//
@@ -86,12 +86,12 @@ public class Find_Zcoordinate {
 		   
 		   double t = ((n1 - m1) * vp1 + (n2 - m2) * vp2 + (n3 - m3) * vp3) / vpt; 
 		   if(m3 + v3 * t<0){
-			   System.out.println("p1: "+ p1.getX()+","+p1.getY()+","+p1.getZ());
-			   System.out.println("p2: "+ p2.getX()+","+p2.getY()+","+p2.getZ());
-			   System.out.println("p3: "+ p3.getX()+","+p3.getY()+","+p3.getZ());
-			   System.out.println("XY: "+ x+","+y);
-			   System.out.println("t: "+ t);
-			   System.out.println(m3 + v3 * t);
+			//  System.out.println("p1: "+ p1.getX()+","+p1.getY()+","+p1.getZ());
+			//   System.out.println("p2: "+ p2.getX()+","+p2.getY()+","+p2.getZ());
+			//   System.out.println("p3: "+ p3.getX()+","+p3.getY()+","+p3.getZ());
+			//   System.out.println("XY: "+ x+","+y);
+			//   System.out.println("t: "+ t);
+			//   System.out.println(m3 + v3 * t);
 		   
 		   }
 		   return m3 + v3 * t;   

@@ -12,7 +12,7 @@ public class main {
 
 
 	public static void main(String[] args)throws IOException, InterruptedException {  
-	
+	/*
 	String InputTIN = args[0];
 	String OutputTIN = args[1];
 	String line = args[2];
@@ -24,20 +24,22 @@ public class main {
 			double yllcorner = Double.valueOf(args[6]);//左下角x緯度
 			double cellsize =  Double.valueOf(args[7]); 
 			double r = Double.valueOf(args[8]);
+		*/
 		
-		
-		//Read_line RL = new Read_line();
-		//RL.simple(15, 119.999583, 22.999583);
+		Read_line RL = new Read_line();
+		//RL.simple(20, 119.999583, 22.999583);
 		
 		
 		
 		Read_TIN RT = new Read_TIN();
-		//RT.tinFile("30.tin", "out.tin");
-		RT.tinFile(InputTIN, OutputTIN);
+		
+		System.out.println("Read TIN");
+		RT.tinFile("30.tin", "out.tin");
+		//RT.tinFile(InputTIN, OutputTIN);
 		
 		
 		Deploy_BS_on_Terrain DBT= new Deploy_BS_on_Terrain();
-		
+		/*
 		
 		DBT.Deploy(OutputTIN, line , 
 				ncols,
@@ -46,9 +48,9 @@ public class main {
 				yllcorner,//左下角x緯度
 				cellsize, 
 				r);
-				
+			*/
 		
-	//	DBT.Deploy("out.tin" , "testline.txt", 1200,1200,119.9995833333, 22.995833333, 0.000833333, 10000);
+		DBT.Deploy("out.tin" , "testline.txt", 1200,1200,119.9995833333, 22.995833333, 0.000833333, 10000);
 		
 		//TL = RT.read("JAVA_N23.txt");"path.txt"
 		
@@ -97,7 +99,7 @@ public class main {
 		System.out.println(l.ptLineDistSq(1.0, 2.0));
 		*/
 		
-		System.out.println("CT :");
+		//System.out.println("CT :");
 		Point2D.Double p = new Point2D.Double();
 		Coordinate_Transform CT = new Coordinate_Transform(); //.asc之參數
 	    CT.cellsize = 0.0008333333333333;
@@ -107,7 +109,7 @@ public class main {
     	CT.ncols = 1200;
 		
 		p = CT.convert(0, 0);
-		System.out.println(p.getX()+" , "+p.getY());
+	//	System.out.println(p.getX()+" , "+p.getY());
 	}
 	
 	
