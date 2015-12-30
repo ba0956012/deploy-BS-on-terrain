@@ -54,7 +54,7 @@ public void cal_Geodesic(ArrayList<Triangel> Input_Triangel_List, ArrayList<TIN_
 			
 				
 			
-			else if(P.contains(End) == true){
+			if(P.contains(End) == true){
 				//System.out.println(j);
 				//System.out.println("del_t_id1 :"+ del_t_id1);
 				//System.out.println("End.getX:"+End.getX());

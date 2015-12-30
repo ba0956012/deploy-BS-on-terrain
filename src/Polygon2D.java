@@ -232,20 +232,20 @@ import java.awt.Shape;
 	        
 	        
 	        
-	        double tolerance = 10.0; //若點在邊上判斷誤差容許值
+	        double tolerance = 1.0; //若點在邊上判斷誤差容許值
 	    	
 	     	Line2D.Double l = new Line2D.Double();
 	        for(int k=0; k<2; k++){
-	        	l.setLine(tmp_xpoints[k],tmp_ypoints[k], tmp_xpoints[k+1], tmp_ypoints[k+1]);
+	        	l.setLine(xpoints[k],ypoints[k], xpoints[k+1], ypoints[k+1]);
 	        	if(l.ptLineDist(x,y) <= tolerance&&
-	        			((x<tmp_xpoints[k] && x>tmp_xpoints[k+1])
-	        			  ||(x<tmp_xpoints[k+1] && x>tmp_xpoints[k])) 
+	        			((x<xpoints[k] && x>xpoints[k+1])
+	        			  ||(x<xpoints[k+1] && x>xpoints[k])) 
 	        	  ){
 	        		return true;
 	        	}
 	        }
-	        l.setLine(tmp_xpoints[2],tmp_ypoints[2], tmp_xpoints[0], tmp_ypoints[0]);
-	        if(l.ptLineDist(x,y) < tolerance&&((x<tmp_xpoints[0] && x>tmp_xpoints[2])||(x<tmp_xpoints[2] && x>tmp_xpoints[0])) ){
+	        l.setLine(xpoints[2],ypoints[2], xpoints[0], ypoints[0]);
+	        if(l.ptLineDist(x,y) < tolerance&&((x<xpoints[0] && x>xpoints[2])||(x<xpoints[2] && x>xpoints[0])) ){
 	        	return true;
         	}
 	        
