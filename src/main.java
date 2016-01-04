@@ -27,7 +27,7 @@ public class main {
 		*/
 		
 		Read_line RL = new Read_line();
-		//RL.simple(20, 119.999583, 22.999583);
+		RL.simple(20, 119.999583, 22.999583);
 		
 		
 		

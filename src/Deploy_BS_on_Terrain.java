@@ -179,13 +179,14 @@ public class Deploy_BS_on_Terrain {
     						
     					);	
 		    
-		 //    System.out.println("GL :"+ GL.GL.size());
-		    
+		    // System.out.println("GL :"+ GL.GL.size());
+		    /*
 		    for(int zz=0;zz<GL.GL.size();zz++)
 		    {
 		   // GL.GL.get(zz).origin().show();
 		   // GL.GL.get(zz).end().show();
 		    }
+		    */
 		    
 		    int de=0;
 		    //System.out.println("de");

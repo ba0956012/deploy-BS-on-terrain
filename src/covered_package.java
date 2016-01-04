@@ -37,13 +37,17 @@ public class covered_package {
 				debug++;	
 					}
 			*/
-			
+			//System.out.println(l.GL.size());
 			for(int i=0;i<l.GL.size();i++){	
+				
+				//System.out.println(i);
+				//System.out.println(Triangel2D.get_xpoint(0)+" , "+Triangel2D.get_ypoint(0));
 				
 				if(Triangel2D.contains(l.GL.get(i).end().x(),l.GL.get(i).end().y())
 				&&Triangel2D.contains(l.GL.get(i).origin().x(),l.GL.get(i).origin().y())){
 					p.Line.add(l.GL.get(i));
 					//l.GL.get(i).show();
+					//System.out.println(Triangel2D.get_xpoint(0)+" , "+Triangel2D.get_ypoint(0));
 				}
 				//					
 				//System.out.println();	
